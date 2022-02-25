@@ -2,4 +2,4 @@
 
 ## ERDS
 
-![an ERD of my project](.ERD.drawio.png)
+![an ERD of my project](ERD.drawio.png)
