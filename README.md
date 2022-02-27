@@ -12,23 +12,21 @@ Hopefully, this will be entertaining to all participants including those using s
 
 ## User stories
 
-- As a user, I want to sign up/ sign in/ and sign out.
-- As a user, I want to vote my favorite caption while logged in.
-- As a user, I want to look at my previous captions signed in.
-- As a user, I want to be able to write captions when signed in.
-- As a user, I want to 
-- As a user, 
-- As a user, 
-- As a user, 
+- As a user, I want to vote my favorite captions.
+- As a user, I want to look at my previous captions.
+- As a user, I want to delete my captions.
+- As a user, I want to play dev-mode. 
+- As a user, I want to edit/delete my alt texts.
+- As a user, I want to view my previous texts.
 ## MVP
 - use TheCatApi and write out 20-30 alt-texts for images
 - make sure those are saved looping as prompt
 - working navbar 
 - random cat facts api on main page?
-
-## stretch goals
 - work on dev-mode where users can write their own alt-text from images
 - make sure they are getting images without alt-texts assigned to them
+
+## stretch goals
 - voting for best alt-texts, and they'll be used as the prompts
 - dev affirmation api on "dev mode"
 ## installation instructions
@@ -55,6 +53,7 @@ Hopefully, this will be entertaining to all participants including those using s
 - postico 
 - canva.com (wireframes)
 - draw.io (ERD)
+-TheCatApi
 
 
 ## wireframes
