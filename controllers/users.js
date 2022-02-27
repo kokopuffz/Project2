@@ -58,12 +58,12 @@ router.post('/login', async (req,res)=>{
   if(!user){ //user not found in database
     console.log('user not found!')
     //passing through error message
-    res.render('users/login.ejs', {error: 'Invalid email/password'})
+    res.render('users/login.ejs', { error: 'Invalid email/password' })
   }else if(!bcrypt.compareSync(req.body.password, user.password)){ 
     //found user but pw was wrong
     console.log('incorrect password')
     //compares plain pw to hashed pw
-    res.render('users/login.ejs', {error: 'Invalid email/password'})
+    res.render('users/login.ejs', { error: 'Invalid email/password' })
   }  else {
     console.log('logging in the user!')
     const encryptedUserId = cryptojs.AES.encrypt(user.id.toString(), process.env.SECRET);
@@ -82,4 +82,8 @@ router.get('/logout',(req, res)=>{
   res.redirect('/')
 })
 //export all these routes to the entry point file
+
+router.get('profile',(req, res)=>{
+  res.render('user/profile.ejs')
+})
 module.exports = router
