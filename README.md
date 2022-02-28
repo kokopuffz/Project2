@@ -13,6 +13,7 @@ Hopefully, this will be entertaining to all participants including those using s
 ## User stories
 
 - As a user, I want to vote my favorite captions.
+- As a user, I want to vote my alt-text.
 - As a user, I want to look at my previous captions.
 - As a user, I want to delete my captions.
 - As a user, I want to play dev-mode. 
@@ -25,6 +26,8 @@ Hopefully, this will be entertaining to all participants including those using s
 - random cat facts api on main page?
 - work on dev-mode where users can write their own alt-text from images
 - make sure they are getting images without alt-texts assigned to them
+- voting options for both alt texts and captions
+- delete/edit option for all alt texts and captions
 
 ## stretch goals
 - voting for best alt-texts, and they'll be used as the prompts
