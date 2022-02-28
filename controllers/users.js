@@ -45,9 +45,6 @@ router.post('/', async (req,res)=>{
 
 })
 
-router.get('/profile',(req, res)=> {
-  res.render('users/profile.ejs')
-})
 
 router.get('/login',(req, res)=>{
   res.render('users/login.ejs',{error:null})
@@ -83,7 +80,8 @@ router.get('/logout',(req, res)=>{
 })
 //export all these routes to the entry point file
 
-router.get('profile',(req, res)=>{
+router.get('users/kittytree',(req, res)=>{
   res.render('user/profile.ejs')
 })
+
 module.exports = router

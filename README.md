@@ -103,7 +103,7 @@ devmode gameplay
 | POST | /new | new(create) | create new user with the POST payload(form) data |
 | GET | /login | show(read) | displays login page |
 | POST | /login | login(create) | create session |
-| GET | /kittyhome | show(read)) | display user's logged in main page |
+| GET | / | show(read)) | display user's logged in main page |
 | GET | / | users/logout(read) | clears cookies and renders index page |
 | GET | /captions/ | show(read) | display captions start page |
 | GET | /captions/start/ | show(read) | displays prompt |
@@ -113,9 +113,9 @@ devmode gameplay
 | GET | /dev/ | show(read) | display devmode start page |
 | GET | /dev/start/ | show(read) | displays prompt |
 | POST | /dev/prompt/:catid/ | new(create) | create new alttext for the catid image |
-| GET | /users/:userid/cattree | show(read) | display all of user's cats, captions, alt-texts |
-| PUT | /users/:userid/cattree | edit(update) | update any caption or alt text from user's cattree page |
-| DELETE | /users/:userid/cattree | destroy | delete any caption or alt text from user's cattree page |
+| GET | /users/kittytree | show(read) | display all of user's cats, captions, alt-texts |
+| PUT | /users/kittytree/edit | edit(update) | update any caption or alt text from user's cattree page |
+| DELETE | /users/kittytree/edit | destroy | delete any caption or alt text from user's cattree page |
 
 <!-- this page might be too similiar to results/catid page -->
 <!-- how hard would it be for the user to update on their cattree page -->
