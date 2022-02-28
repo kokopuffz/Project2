@@ -72,7 +72,7 @@ cat-tree page includes all captions and alt-texts, has option to edit or delete
 captions mode instructions
 ![logged-in page](captionsinst.png)
 captions prompt page
-![logged-in page](captions2.png)
+![logged-in page](caption2.png)
 caption results page
 ![logged-in page](captionresult.png)
 captions result page
