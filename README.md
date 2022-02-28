@@ -114,15 +114,13 @@ devmode gameplay
 | PUT | /results/:catid/ | update | update the number on any upvotes user makes|
 | GET | /dev/ | show(read) | display devmode start page |
 | GET | /dev/start/ | show(read) | displays prompt |
-| POST | /dev/prompt/:catid/ | new(create) | create new alttext for the catid image|
-
-| GET | /users/:userid/cattree | show(read) | display all of user's cats, captions, alt-texts|
-<!-- this page might be too similiar to results/catid page -->
-<!-- how hard would it be for the user to update on their cattree page -->
-| PUT | /users/:userid/cattree | edit(update) | update any caption or alt text from user's cattree page|
+| POST | /dev/prompt/:catid/ | new(create) | create new alttext for the catid image |
+| GET | /users/:userid/cattree | show(read) | display all of user's cats, captions, alt-texts |
+| PUT | /users/:userid/cattree | edit(update) | update any caption or alt text from user's cattree page |
 | DELETE | /users/:userid/cattree | destroy | delete any caption or alt text from user's cattree page |
 
-
+<!-- this page might be too similiar to results/catid page -->
+<!-- how hard would it be for the user to update on their cattree page -->
 
 
 ## sources used
