@@ -29,6 +29,7 @@ Hopefully, this will be entertaining to all participants including those using s
 ## stretch goals
 - voting for best alt-texts, and they'll be used as the prompts
 - dev affirmation api on "dev mode"
+- about page
 ## installation instructions
 
 ## link to deployed live site
@@ -59,9 +60,28 @@ Hopefully, this will be entertaining to all participants including those using s
 
 ## wireframes
 home page-basically, i want people to know what they are signing up for
-![home page](index.png)
+![home page](index1.png)
 home page-the image should carousel to show how it is played
 ![home page](index2.png)
+user logged in index page
+![logged-in page](cathome.png)
+cat-tree page shows all collected cats of the user... cats the user has made captions for.
+![cat-tree-page](cattree1.png)
+cat-tree page includes all captions and alt-texts, has option to edit or delete
+![logged-in page](cattree21.png)
+captions mode instructions
+![logged-in page](captionsinst.png)
+captions prompt page
+![logged-in page](captions2.png)
+caption results page
+![logged-in page](captionresult.png)
+captions result page
+![logged-in page](resultpage.png)
+devmode instructions
+![logged-in page](devmodeinst.png)
+devmode gameplay
+![logged-in page](devmode2.png)
+
 
 
 ## restful routing chart
