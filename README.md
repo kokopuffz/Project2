@@ -109,7 +109,7 @@ devmode gameplay
 | GET | /captions/start/ | show(read) | displays prompt |
 | POST | /captions/prompt/:catid/ | new(create) | create new caption for the catid alt text |
 | GET | /results/:catid/ | show(read) | display catid's results page |
-| PUT | /results/:catid/ | update | update the number on any upvotes user makes|
+| POST | /results/:catid/ | interaction(create) | record user interaction with any captions |
 | GET | /dev/ | show(read) | display devmode start page |
 | GET | /dev/start/ | show(read) | displays prompt |
 | POST | /dev/prompt/:catid/ | new(create) | create new alttext for the catid image |
