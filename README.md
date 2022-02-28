@@ -18,22 +18,19 @@ Hopefully, this will be entertaining to all participants including those using s
 - As a user, I want to add captions.
 - As a user, I want to delete captions.
 - As a user, I want to add alt-texts.
-- As a user, I want to play devmode. 
-- As a user, I want to edit my alt-texts.
-- As a user, I want to delete my alt texts.
-- As a user, I want to view my previous alt-texts.
 - As a user, I want to view my previous captions.
+- As a user, I want to play devmode.(stretch goal) 
+- As a user, I want to edit my alt-texts.(stretch goal) 
+- As a user, I want to delete my alt texts.(stretch goal) 
+- As a user, I want to view my previous alt-texts.(stretch goal) 
 ## MVP
 - use TheCatApi and write out 30-40 weak? alt-texts for images
-- keep track of all images users interact with alt text and captions
+- keep track of all images users interact with captions
 - make sure user does not get the same prompt they have already captioned
-- make sure user does not get the same prompt they have already provided alt-texts
-- provide 2 modes for users (dev, captions)
-- make sure images go to devmode
-- make sure only alt-texts go to captions mode
-- upvote options for both alt texts and captions
+- functioning captions mode
+- upvote options for all captions
 - make sure user cannot vote on something more than once
-- delete/edit option for all alt texts and captions in their cattree page
+- delete/edit option for all captions in their cattree page
 - cats that were captioned on will become images in user's cattree
 
 ## stretch goals
@@ -42,6 +39,7 @@ Hopefully, this will be entertaining to all participants including those using s
 - dev affirmation api on "dev mode"
 - about page
 - if anything is edited, the vote count resets
+- make a dev mode
 ## installation instructions
 
 ## link to deployed live site
