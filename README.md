@@ -37,7 +37,8 @@ Hopefully, this will be entertaining to all participants including those using s
 
 ![an ERD of my project](ERD.drawio.png)
 ## approach taken
-
+## flow chart
+![basic flow chart](flowchart.png)
 ## tech used
 - nodeJS
 - javascript
