@@ -1,8 +1,9 @@
-sequelize model:create --name user --attributes email:string,password:string 
+x sequelize model:create --name user --attributes email:string,password:string,username:string 
 
-sequelize model:create --name caption --attributes text:string
+x sequelize model:create --name caption --attributes text:string
+x sequelize model:create --name alttext --attributes text:string
 
-sequelize model:create --name catpic --attributes imgurl:string
+sequelize model:create --name catpic --attributes imgurl:string,picid:string
 
 sequelize model:create --name users_captions --attributes
 
