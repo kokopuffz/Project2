@@ -46,10 +46,10 @@ Hopefully, this will be entertaining to all participants including those using s
 
 ## ERDS
 
-![an ERD of my project](ERD.drawio.png)
+![an ERD of my project](./pitchimgs/ERD.drawio.png)
 ## approach taken
 ## flow chart
-![basic flow chart](flowchart.png)
+![basic flow chart](./pitchimgs/flowchart.png)
 ## tech used
 - nodeJS
 - javascript

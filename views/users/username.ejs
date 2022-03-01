@@ -1,0 +1,13 @@
+
+<% if (error) { %> 
+  <em style="color:red"><%= error %> </em>
+<% } %> 
+
+<h3>make a unique username</h3>
+
+  <form action="/username" method="POST">
+  <label for="username">username:</label>
+  <input type="username" name="username" id="username">
+  
+  <button type="submit">submit</button>
+</form>

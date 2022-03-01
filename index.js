@@ -9,7 +9,8 @@ const axios = require('axios')
 const catUrl = `https://thecatapi.com/v1/images/search?api_key=${process.env.CAT_API_KEY}`;
 const catConfig = {
   method: "get",
-  url: "https://api.thecatapi.com/v1/images/search?mime_types=jpg,png&includeformat=json&include_size=small",
+  url: "https://api.thecatapi.com/v1/images/search?mime_types=jpg,png&includehas_breeds=1&includeformat=json",
+  // url: "https://api.thecatapi.com/v1/categories",
   headers: {
     "Content-Type": "application/json",
     "x-api-key": `${process.env.CAT_API_KEY}`,
@@ -42,6 +43,7 @@ app.use(async (req, res, next) => {
 
 // CONTROLLERS
 app.use('/users', require('./controllers/users.js'))
+app.use('/alttexts', require('./controllers/users.js'))
 
 axios(catConfig)
 .then(function(response){

@@ -3,6 +3,7 @@ const router = express.Router()
 const db = require('../models')
 const bcrypt = require('bcrypt')
 const cryptojs = require('crypto-js')
+const res = require('express/lib/response')
 require('dotenv').config()
 
 
@@ -30,6 +31,7 @@ router.post('/', async (req,res)=>{
     //hash the user
     const hashedPassword = bcrypt.hashSync(req.body.password, 10)
     newUser.password =hashedPassword
+    
     await newUser.save()
 
     //encrypt the user id via advanced encrption standard AES
@@ -40,15 +42,17 @@ router.post('/', async (req,res)=>{
     //store the encrypted id in the cookie of the res obj
     res.cookie('userId', encryptedUserIdString)
     //redirect back to home page
-    res.redirect('/')
+    res.render('users/kittyhome.ejs')
   }
 
 })
 
 
+
 router.get('/login',(req, res)=>{
   res.render('users/login.ejs',{error:null})
 })
+
 
 router.post('/login', async (req,res)=>{
   const user = await db.user.findOne({where: {email:req.body.email}})
@@ -69,9 +73,14 @@ router.post('/login', async (req,res)=>{
     //store the encrypted id in the cookie of the res obj
     res.cookie("userId", encryptedUserIdString);
     //redirect back to home page
-    res.redirect("/");
+    res.render("users/kittyhome.ejs");
   }
 })
+
+//check if user  has a username, if yes, continue to kittyhoem, if not,newusername page.
+
+
+
 //clears cookies
 router.get('/logout',(req, res)=>{
   console.log('logging out')
@@ -80,8 +89,15 @@ router.get('/logout',(req, res)=>{
 })
 //export all these routes to the entry point file
 
-router.get('users/kittytree',(req, res)=>{
-  res.render('user/profile.ejs')
+router.get("/kittyhome", (req, res) => {
+  res.render("users/kittyhome.ejs");
+});
+router.get("/kittytree", (req, res) => {
+  res.render("users/profile.ejs");
+});
+
+router.get('/newusername',(req,res)=>{
+  res.render("users/username.ejs")
 })
 
 module.exports = router
