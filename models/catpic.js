@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   catpic.init({
     imgurl: DataTypes.STRING,
-    picid: DataTypes.STRING
+    picid: DataTypes.STRING,
+    alttext: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'catpic',
