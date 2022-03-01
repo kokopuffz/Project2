@@ -70,27 +70,27 @@ Hopefully, this will be entertaining to all participants including those using s
 
 ## wireframes
 home page-basically, i want people to know what they are signing up for
-![home page](index1.png)
+![home page](./pitchimgs/index1.png)
 home page-the image should carousel to show how it is played
-![home page](index2.png)
+![home page](./pitchimgs/index2.png)
 user logged in index page
-![logged-in page](cathome.png)
+![logged-in page](./pitchimgs/cathome.png)
 cat-tree page shows all collected cats of the user... cats the user has made captions for.
-![cat-tree-page](cattree1.png)
+![cat-tree-page](./pitchimgs/cattree1.png)
 cat-tree page includes all captions and alt-texts, has option to edit or delete
-![logged-in page](cattree21.png)
+![logged-in page](./pitchimgs/cattree21.png)
 captions mode instructions
-![logged-in page](captionsinst.png)
+![logged-in page](./pitchimgs/captionsinst.png)
 captions prompt page
-![logged-in page](caption2.png)
+![logged-in page](/pitchimgs/caption2.png)
 caption results page
-![logged-in page](captionresult.png)
+![logged-in page](/pitchimgs/captionresult.png)
 captions result page
-![logged-in page](resultpage.png)
+![logged-in page](/pitchimgs/resultpage.png)
 devmode instructions
-![logged-in page](devmodeinst.png)
+![logged-in page](./pitchimgs/devmodeinst.png)
 devmode gameplay
-![logged-in page](devmode2.png)
+![logged-in page](./pitchimgs/devmode2.png)
 
 
 

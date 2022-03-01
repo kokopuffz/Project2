@@ -5,6 +5,16 @@ require('dotenv').config() // allows us to access env vars
 const cookieParser = require("cookie-parser");
 const cryptoJS = require('crypto-js');
 const db = require('./models/index.js');
+const axios = require('axios')
+const catUrl = `https://thecatapi.com/v1/images/search?api_key=${process.env.CAT_API_KEY}`;
+const catConfig = {
+  method: "get",
+  url: "https://api.thecatapi.com/v1/images/search?mime_types=jpg,png&includeformat=json&include_size=small",
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": `${process.env.CAT_API_KEY}`,
+  },
+};
 
 // MIDDLEWARE
 app.set('view engine', 'ejs') // set the view engine to ejs
@@ -33,6 +43,10 @@ app.use(async (req, res, next) => {
 // CONTROLLERS
 app.use('/users', require('./controllers/users.js'))
 
+axios(catConfig)
+.then(function(response){
+  console.log(JSON.stringify(response.data))
+})
 
 // ROUTES
 app.get('/', (req, res)=>{
