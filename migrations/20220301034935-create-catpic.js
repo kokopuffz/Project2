@@ -11,7 +11,10 @@ module.exports = {
       imgurl: {
         type: Sequelize.STRING
       },
-      id: {
+      picid: {
+        type: Sequelize.STRING
+      },
+      alttext: {
         type: Sequelize.STRING
       },
       createdAt: {
