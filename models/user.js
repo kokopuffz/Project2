@@ -13,13 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.user.hasMany(models.caption, {onDelete: 'cascade' })
       models.user.hasMany(models.alttext, {onDelete: 'cascade' })
+      models.user.hasMany(models.vote, {onDelete: 'cascade' })
     }
   }
   user.init({
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     username: {
-      type: DataTypes.STING,
+      type: DataTypes.STRING,
       allowNull:false,
       unique:true
     }

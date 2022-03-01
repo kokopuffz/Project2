@@ -4,6 +4,7 @@ const db = require('../models')
 const bcrypt = require('bcrypt')
 const cryptojs = require('crypto-js')
 const res = require('express/lib/response')
+const { user } = require('pg/lib/defaults')
 require('dotenv').config()
 
 
@@ -77,7 +78,15 @@ router.post('/login', async (req,res)=>{
   }
 })
 
-//check if user  has a username, if yes, continue to kittyhoem, if not,newusername page.
+//create username
+router.post('./newusername', async (req, res)=>{
+const username = await db.user.findOne({where: {username:req.body.username}})
+  if (!username) { 
+    // let user = 
+  }
+})
+
+// user:res.local.user
 
 
 

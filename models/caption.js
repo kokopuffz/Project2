@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.caption.belongsTo(models.user)
       models.caption.belongsTo(models.catpic)
+      models.caption.hasMany(models.vote)
     }
   }
   caption.init({

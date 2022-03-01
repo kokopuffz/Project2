@@ -1,10 +1,17 @@
 x sequelize model:create --name user --attributes email:string,password:string,username:string 
 
 x sequelize model:create --name caption --attributes text:string
-x sequelize model:create --name alttext --attributes text:string
 
-sequelize model:create --name catpic --attributes imgurl:string,picid:string
+sequelize model:create --name catpic --attributes imgurl:string,picid:string,alttext:string
 
-sequelize model:create --name users_captions --attributes
 
-sequelize model:create --name users_alttexts --attributes
+
+sequelize model:create --name vote --attributes userId:integer,captionId:integer
+
+
+sequelize model:create --name alttext --attributes text:string
+
+drop db
+createdb kittytext
+sequelize db:migrate   
+sequelize db:migrate:undo:all   
