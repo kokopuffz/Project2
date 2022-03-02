@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.render("404");
+  res.render("404.ejs");
 });
 
 // check for an env PORT, otherwise use 8000

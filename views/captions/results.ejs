@@ -1,1 +1,11 @@
-<h1>youve made it to results!</h1>
+<h1>prompt: "<%= catimage.alttext %> "</h1>
+<div>
+  <h2>image</h2>
+  <img src="<%= catimage.imgurl %> " />
+</div>
+
+<div>
+  <% captions.forEach(caption => { %>
+  <p><%= caption.text %></p>
+  <% }) %>
+</div>
