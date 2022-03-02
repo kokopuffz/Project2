@@ -1,0 +1,14 @@
+  <nav>
+    <ul> 
+      <% if (user){ %>
+        <% console.log('userrar') %> 
+        <li><a href="/users/kittyhome">kittyhome</a></li>
+        <li><a href="/users/kittytree">profile</a></li>
+        <li><a href="/users/logout">logout</a></li>
+       <% } else { %> 
+        <% console.log('rarelse') %> 
+        <li><a href="/users/new">sign up</a></li>
+        <li><a href="/users/login">login</a></li>
+<% } %> 
+    </ul>
+  </nav>

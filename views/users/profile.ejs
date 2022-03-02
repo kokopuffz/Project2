@@ -1,6 +1,6 @@
 
-<% if(user) { %>
-<h2>meow! <%= user.email %></h2>
+<% if(!user.username) { %>
+<h2>meow! <%= user.username %></h2>
 <% } else { %> 
 <h2> hello <%= user.email %> </h2>
 <a href="/users/newusername">would you like to create a username?</a> 

@@ -43,21 +43,18 @@ app.use(async (req, res, next) => {
 
 // CONTROLLERS
 app.use('/users', require('./controllers/users.js'))
-app.use('/alttexts', require('./controllers/users.js'))
+app.use('/captions', require('./controllers/users.js'))
 
-axios(catConfig)
-.then(function(response){
-  console.log(JSON.stringify(response.data))
-})
+
 
 // ROUTES
 app.get('/', (req, res)=>{
     res.render('home.ejs')
 })
 
-// app.get('*', (req,res,next)=>{
-  
-// })
+app.get('*', (req,res)=>{
+  res.render('404')
+})
 
 // check for an env PORT, otherwise use 8000
 const PORT = process.env.PORT || 8000
