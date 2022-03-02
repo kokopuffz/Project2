@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
   // })
   // console.log(whatisthis)
   const [newUser, created] = await db.user.findOrCreate({
-    //findourcreate will always return array with 2 values..one is the main thing and 2nd a trueorfalse at created.
+    //findourcreate will always 
     where: { email: req.body.email },
   });
   if (!created) {
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
     //render says to send
     //redirect is go ping another req route
     res.render("users/new.ejs", {
-      error: "user already exists, trying logging in :)",
+      error: "user already exists, try logging in :)",
     });
   } else {
     //hash the user
@@ -45,11 +45,10 @@ router.post("/", async (req, res) => {
       process.env.SECRET
     );
     const encryptedUserIdString = encryptedUserId.toString();
-    console.log(encryptedUserIdString);
     //store the encrypted id in the cookie of the res obj
     res.cookie("userId", encryptedUserIdString);
     //redirect back to home page
-    res.render("users/kittyhome.ejs");
+    res.redirect("/");
   }
 });
 
@@ -79,7 +78,6 @@ router.post("/login", async (req, res) => {
       process.env.SECRET
     );
     const encryptedUserIdString = encryptedUserId.toString();
-    console.log(encryptedUserIdString);
     //store the encrypted id in the cookie of the res obj
     res.cookie("userId", encryptedUserIdString);
     //redirect back to home page

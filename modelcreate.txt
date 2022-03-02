@@ -1,6 +1,6 @@
 x sequelize model:create --name user --attributes email:string,password:string,username:string 
 
-x sequelize model:create --name caption --attributes text:string
+sequelize model:create --name caption --attributes text:string,userId:integer,catpicsId:integer
 
 sequelize model:create --name catpic --attributes imgurl:string,picid:string,alttext:string
 
@@ -51,7 +51,7 @@ module.exports = {
         alttext: '2 cats, white one on a hammock looking content'
         createdAt: new Date(),
         updatedAt: new Date()
-      }, 
+      } 
       ],{});
   },
 
@@ -59,3 +59,5 @@ module.exports = {
       return queryInterface.bulkDelete('catpics', null, {});
   }
 };
+
+seed:generate --name demo-catimgs
