@@ -28,7 +28,7 @@ router.post("/prompt", async (req, res) => {
     catpicId: catid,
     text: caption,
   });
-  res.redirect("captions/results");
+  res.redirect("/captions/results");
 });
 
 router.get("/results", async (req, res) => {
@@ -55,7 +55,27 @@ router.get("/results", async (req, res) => {
     where: { catpicId: catPicId },
     raw: true,
   });
-  // console.log(allCaptions);
+
+  //get all vote count
+  //vote happens when there is a captionid and a user id
+
+  //get 1 vote
+
+  const captionsid = allCaptions.id
+/* This is counting the number of votes for each caption. */
+console.log(captionsid)
+
+router.post("/results", (req, res) => {
+  let captionid = req.body.captionid
+  console.log(`CATID: ${captionid}`)
+})
+
+
+  // const votes = await db.vote.count({ 
+  //   where:{ captionId: allCaptions.id }
+  // })
+  // // console.log(votes)
+  // // console.log(allCaptions);
   res.render("captions/results.ejs", {
     catid: getCatPic,
     captions: allCaptions,
@@ -64,29 +84,3 @@ router.get("/results", async (req, res) => {
 
 module.exports = router;
 
-// router.get('/results', (req, res) => {
-
-// })
-//get the image
-
-//get all captions
-
-
-// console.log()
-//
-//getroute
-//createvote
-
-// router.get("/results", (req, res) => {
-//   res.render("captions/results.ejs");
-// });
-
-// router.get("/results", async (req, res) => {
-// const catid = req.body.catpicid;
-//render image
-//render all captions
-// const captionResults = await db.
-//show count
-// });
-
-// module.exports = router;
