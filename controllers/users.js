@@ -7,18 +7,18 @@ const res = require("express/lib/response");
 const { user } = require("pg/lib/defaults");
 require("dotenv").config();
 
+
+router.get("/", (req, res) => {
+  res.render("home.ejs");
+});
 //user signup page
-router.get("/new", (req, res) => {
-  res.render("users/new.ejs");
+
+router.get("/login", (req, res) => {
+  res.render("users/login.ejs", { error: null });
 });
 
 //get info to create account
 router.post("/", async (req, res) => {
-  //TESTing
-  // const whatisthis = await db.user.findOrCreate({
-  //   where:{email: req.body.email}
-  // })
-  // console.log(whatisthis)
   const [newUser, created] = await db.user.findOrCreate({
     //findourcreate will always 
     where: { email: req.body.email },
@@ -52,12 +52,9 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/login", (req, res) => {
-  res.render("users/login.ejs", { error: null });
-});
 
-router.get("/kittyhome", (req, res) => {
-  res.render("users/kittyhome.ejs");
+router.get("/new", (req, res) => {
+  res.render("users/new.ejs");
 });
 router.post("/login", async (req, res) => {
   const user = await db.user.findOne({ where: { email: req.body.email } });

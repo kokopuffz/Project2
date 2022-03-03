@@ -16,11 +16,18 @@ module.exports = (sequelize, DataTypes) => {
       models.caption.hasMany(models.vote)
     }
   }
-  caption.init({
-    text: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'caption',
-  });
+  caption.init(
+    {
+      text: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
+    },
+    {
+      sequelize,
+      modelName: "caption",
+    }
+  );
   return caption;
 };

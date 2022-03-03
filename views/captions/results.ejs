@@ -5,7 +5,9 @@
 </div>
 
 <div>
-  <% captions.forEach(caption => { %>
-  <p><%= caption.text %></p>
-  <% }) %>
-</div>
+  <form action="/prompt/results" method="POST">
+    <label for="captions">captions:</label>
+    <% captions.forEach(caption => { %>
+      <p><%= caption.text %></p>
+    <% }) %>
+  </form>
