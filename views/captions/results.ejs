@@ -4,10 +4,18 @@
 </div>
 
 <div>
-  <form action="/prompt/results" method="POST">
-    <label for="captions">captions:</label>
+  <form action="/captions/results" method="POST">
+    <label for="captions">all captions</label>
     <% captions.forEach(caption => { %>
-      <p><%= caption.text %></p>
-    <% }) %>
+    <p><%= caption.text %></p>
+
+    <input
+      type="hidden"
+      name="catpicid"
+      id="catpicid"
+      value="<%= catid.id %>"
+    />
+    <button type="submit">vote</button>
+    <% }) %> 
   </form>
 </div>
