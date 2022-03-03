@@ -61,16 +61,15 @@ router.get("/results", async (req, res) => {
 
   //get 1 vote
 
-  const captionsid = allCaptions.id
-/* This is counting the number of votes for each caption. */
-console.log(captionsid)
-
-router.post("/results", (req, res) => {
-  let captionid = req.body.captionid
-  console.log(`CATID: ${captionid}`)
-})
-
-
+  // const captionsid = allCaptions.id
+  router.post("/results", (req, res) => {
+    let captionid = req.body.captionid
+    // let captionvalue = captionid.value
+    console.log(`CATID: ${captionid}`)
+  })
+  
+  
+  /* This is counting the number of votes for each caption. */
   // const votes = await db.vote.count({ 
   //   where:{ captionId: allCaptions.id }
   // })

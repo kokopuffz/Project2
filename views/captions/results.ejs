@@ -6,16 +6,15 @@
 <div>
   <form action="/captions/results" method="POST">
     <label for="captions">all captions</label>
-    <% captions.forEach(caption => { %>
-    <p><%= caption.text %></p>
-
-    <input
-      type="hidden"
-      name="captionid"
-      id="captionid"
-      value="<%= caption.id %>"
-    />
+    <ul>
+      <% captions.forEach(caption => { %>
+      <li>
+        <p><%= caption.text %></p>
+        <label for="captionid">vote</label>
+        <input type="checkbox" name="captionid" id="captionid" onchange="toggle" value="<%= caption.id %>">
+        <% }) %>
+      </li>
+    </ul>
     <button type="submit">vote</button>
-    <% }) %> 
   </form>
 </div>
