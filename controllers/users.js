@@ -104,25 +104,22 @@ router.get("/kittytree", async (req, res) => {
   // const catpic = await db.catpic.findOne({
   //   where: { id: catpicId },
   // });
-
+console.log(captions)
   res.render("users/profile.ejs", { captions: captions });
 });
 
 //show based on exercise clicked on
 router.get("/kittytree/:id", async (req, res) => {
   let picId = req.params.id;
-
-  const captions = await db.caption.findAll({
-    where: {
-      catpicId: picId,
-    },
-    include: [db.catpic],
-    // include:[db.vote],
-    raw: true,
-  });
-  console.log(captions)
-  res.render("users/edit.ejs", {id: picId});
+  const catpic = await db.catpic.findByPk(picId);
+  const userCaption = await res.locals.user.getCaptions()
+ 
+  res.render("users/edit.ejs", { id: picId, catpic: catpic, usercap: userCaption});
 });
+
+router.put('/kittytree/:id', (req, res) => {
+  let picId = req.params.id 
+})
 
 router.get("/newusername", (req, res) => {
   res.render("users/username.ejs");

@@ -1,3 +1,7 @@
 <!-- shows all cats, captions, alttexts -->
 <h2>you're in edits!</h2>
-<%= id %> 
+<h5>prompt: <%= catpic.alttext %> </h5>
+<img src="<%= catpic.imgurl %>" > 
+<% if catpic.id === usercap[0].catpicId { %>
+  <p>yer text: <%= usercap[0].text  %> </p>
+  <% } %> 
