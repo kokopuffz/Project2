@@ -1,7 +1,19 @@
+<div>
+  <% if(user.username) { %>
+  <h2>meow! <%= user.username %></h2>
+  <% } else { %>
+  <h2>hello <%= user.email %> !</h2>
+  <a href="/users/newusername">would you like to create a username?</a>
+  <% } %>
+</div>
 
-<% if(!user.username) { %>
-<h2>meow! <%= user.username %></h2>
-<% } else { %> 
-<h2> hello <%= user.email %> </h2>
-<a href="/users/newusername">would you like to create a username?</a> 
-    <% } %> 
+<div>
+  <h3>check out your cats!</h3>
+</div>
+<div>
+  <h3>all comments</h3>
+<% captions.forEach(caption => { %>
+ <p><%= caption.text %> </p>  
+ <a href="/users/kittytree/<%= caption.id %>"
+<% }) %>
+</div>

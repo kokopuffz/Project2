@@ -56,21 +56,9 @@ router.get("/results", async (req, res) => {
     raw: true,
   });
 
-  //get all vote count
-  //vote happens when there is a captionid and a user id
-
-  //get 1 vote
-
   // const captionsid = allCaptions.id
-  router.post("/results", (req, res) => {
-    let captionid = req.body.captionid
-    // let captionvalue = captionid.value
-    console.log(`CATID: ${captionid}`)
-  })
-  
-  
   /* This is counting the number of votes for each caption. */
-  // const votes = await db.vote.count({ 
+  // const votes = await db.vote.count({
   //   where:{ captionId: allCaptions.id }
   // })
   // // console.log(votes)
@@ -81,5 +69,13 @@ router.get("/results", async (req, res) => {
   });
 });
 
-module.exports = router;
+  //get all vote count
+  //vote happens when there is a captionid and a user id
+router.post("/results",  (req, res) => {
+  // let captionid = req.body.captionid;
+  // let captionvalue = captionid.value
+  console.log(user);
+  // const getUserVote = await.db
+});
 
+module.exports = router;

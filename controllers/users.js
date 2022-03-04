@@ -7,7 +7,6 @@ const res = require("express/lib/response");
 const { user } = require("pg/lib/defaults");
 require("dotenv").config();
 
-
 router.get("/", (req, res) => {
   res.render("home.ejs");
 });
@@ -20,7 +19,7 @@ router.get("/login", (req, res) => {
 //get info to create account
 router.post("/", async (req, res) => {
   const [newUser, created] = await db.user.findOrCreate({
-    //findourcreate will always 
+    //findourcreate will always
     where: { email: req.body.email },
   });
   if (!created) {
@@ -51,7 +50,6 @@ router.post("/", async (req, res) => {
     res.redirect("/");
   }
 });
-
 
 router.get("/new", (req, res) => {
   res.render("users/new.ejs");
@@ -87,11 +85,48 @@ router.post("./newusername", async (req, res) => {
   const username = await db.user.findOne({
     where: { username: req.body.username },
   });
-  if (!username) {
-    // let user =
-  }
 });
 
+router.get("/kittytree", async (req, res) => {
+  // const id = req.params.id
+  const user = res.locals.user;
+  console.log(user.id);
+  // const captions = await res.locals.user.getCaptions();
+  const captions = await db.caption.findAll({
+    where: {
+      userId: user.id,
+    },
+    include: [db.catpic],
+    // include:[db.vote],
+    raw: true,
+  });
+
+  // const catpic = await db.catpic.findOne({
+  //   where: { id: catpicId },
+  // });
+
+  res.render("users/profile.ejs", { captions: captions });
+});
+
+//show based on exercise clicked on
+router.get("/kittytree/:id", async (req, res) => {
+  let picId = req.params.id;
+
+  const captions = await db.caption.findAll({
+    where: {
+      catpicId: picId,
+    },
+    include: [db.catpic],
+    // include:[db.vote],
+    raw: true,
+  });
+  console.log(captions)
+  res.render("users/edit.ejs", {id: picId});
+});
+
+router.get("/newusername", (req, res) => {
+  res.render("users/username.ejs");
+});
 // user:res.local.user
 
 //clears cookies
@@ -101,13 +136,5 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 //export all these routes to the entry point file
-
-router.get("/kittytree", (req, res) => {
-  res.render("users/profile.ejs");
-});
-
-router.get("/newusername", (req, res) => {
-  res.render("users/username.ejs");
-});
 
 module.exports = router;

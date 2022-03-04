@@ -62,3 +62,29 @@ module.exports = {
 
 seed:generate --name demo-catimgs
 
+
+<div>
+  <label for="captions">all captions</label>
+  <ul>
+    <form action="/captions/results" method="POST">
+      <% captions.forEach(caption => { %>
+      <li>
+        <p><%= caption.text %></p>
+        <input
+          type="submit"
+          name="votingbutton"
+          id="votingbutton"
+          value="vote"
+        />
+        <input
+          type="hidden"
+          name="caption"
+          id="capt<%= caption.id  %>"
+          value="<%= caption.id  %>"
+        />
+        <!-- <button type="submit">vote</button> -->
+      </li>
+      <% }) %>
+    </form>
+  </ul>
+</div>
