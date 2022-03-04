@@ -88,3 +88,83 @@ seed:generate --name demo-catimgs
     </form>
   </ul>
 </div>
+
+  // const captions = await db.caption.findAll ({ 
+  //   where: { 
+  //     userId: userid,
+  //   },
+  //   include:[db.catpic],
+  //   raw: true,
+  // })
+  // console.log(captions[0].catpic)
+
+
+  <% for( let i = 0; i < catpics.length; i++){ %>
+
+    <% if ( catpics[i].id !== prompts[i].catpicId ) { %> 
+      <% alttext=catpics[i].alttext %> 
+    <% } else { %> 
+      <p>you finished all alt-texts! try dev mode :3</p>
+    <% } %> 
+  <% } %> 
+  <p><%= alttext  %> </p>
+</div>
+
+<% if !(donecaps.length){ %> 
+  <% picid = 1 %> 
+  <% alttext = catpics[0].alttext %> 
+<% } %> 
+<% donecaps.forEach(cap => { %>
+  <% cap.catpicId %>
+  <% for(let i = 1; i < catpics.length + 1; i++) { %>
+    <% if(cap.catpicId !== i) { %> 
+      <% alttext = cap.text %> 
+      <% picid = i %>
+    <% } %> 
+  <% }) %> 
+<% } %> 
+
+  <% for( let i = 1, j=0; i < catpics.length + 1; i++, j++){ %>
+    <% if ( i !== donecaps[j].catpicId ) { %> 
+      
+      <% alttext = catpics[i].alttext %> 
+      <% picid = i %> 
+    <% } else { %> 
+      <p>you finished all alt-texts! try dev mode :3</p>
+    <% } %> 
+  <% } %> 
+  <p><%= alttext  %> </p>
+
+  <div>
+    <% let alttext %> 
+  <% for( let i = 0; i < catpics.length; i++){ %>
+
+    <% if( catpics[i].id !== prompts[i].catpicId ) { %> 
+      <% alttext=catpics[i].alttext %> 
+    <% } %> 
+
+  <% } %>
+<p><%= alttext  %> </p>
+</div>
+
+<div>
+<% if(!donecaps.length){ %> 
+  <% picid = 1 %>
+  <% alttext = catpics[-1].alttext %>
+  <% } else if (donecaps[0].catpicId <= catpics[0].id){ %>   
+    <% picid = donecaps[0].catpicId + 1  %> 
+    <% alttext = catpics[picid].alttext %>
+    <% } %> 
+    <p><%= picid %></p>
+    <p><%= alttext %></p>
+</div>  
+
+<% if(!donecaps.length){ %> 
+  <% picid = 1 %>
+  <% alttext = catpics[0].alttext %>
+  <% } else if (){ %>   
+    <%   %> 
+    <% alttext = catpics[picid].alttext %>
+    <% } %> 
+    <p><%= picid %></p>
+    <p><%= alttext %></p>

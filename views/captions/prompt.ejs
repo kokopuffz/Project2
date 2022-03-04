@@ -1,13 +1,17 @@
 <h2>prompt</h2>
-<div>
-  <%= catpic.alttext %>
-</div>
+<% let alttext = 1 %> 
+<% let picid = 1 %>  
 
 <div>
-  <form action="/captions/prompt" method="POST">
+    <% alttext = catpics[picid].alttext %>
+</div>  
+
+<div>
+  <form action="/captions/prompt/" method="POST">
     <label for="caption">write your caption here:</label>
     <input name="caption" id="caption" />
-    <input type="hidden" name="catpicid" id="catpicid" value="<%= catpic.id %>" />
     <button type="submit">submit caption</button>
+    <input type="hidden" name="catpicid" id="catpicid" value="<%= picid %>" />
   </form>
 </div>
+

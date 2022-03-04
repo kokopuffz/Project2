@@ -4,40 +4,53 @@ const db = require("../models");
 require("dotenv").config();
 const res = require("express/lib/response");
 
-// axios(catConfig).then(function (response) {
-//   console.log(JSON.stringify(response.data));
-// });
+
 
 router.get("/", (req, res) => {
   res.render("captions/index.ejs");
 });
 
 router.get("/prompt", async (req, res) => {
-  const catpics = await db.catpic.findAll({ raw: true });
-  res.render("captions/prompt.ejs", { catpic: catpics[0] });
+  const user = res.locals.user;
+  const doneCaptions = await db.caption.findAll({
+    where: { userId: user.id }, 
+    order: [["catpicId", "desc"]],
+    include: [db.catpic],
+    raw: true,
+  })
+  const catpics = await db.catpic.findAll({ 
+    order: [[ "id", "desc" ]],  
+    raw: true
+  })
+
+console.log(doneCaptions)
+console.log(catpics[-1])
+  res.render("captions/prompt.ejs", { catpics: catpics, donecaps: doneCaptions});
 });
 
-router.post("/prompt", async (req, res) => {
+router.post("/prompt/", async (req, res) => {
   console.log("/PROMPT");
-  const catid = req.body.catpicid;
+  const picid = req.body.picid;
   //id of image
+  const kittyid = req.body.id
   const caption = req.body.caption;
   const user = res.locals.user;
   const newCaption = await db.caption.create({
     userId: user.id,
-    catpicId: catid,
-    text: caption,
+    catpicId: picid,
+    text: caption, 
   });
-  res.redirect("/captions/results");
+  
+  res.redirect("/captions/results/picid");
 });
 
-router.get("/results", async (req, res) => {
+router.get("/results/:id", async (req, res) => {
   const user = res.locals.user;
   const userId = user.id;
   //find user's last caption entry and get captionId
   const getCaptionId = await db.caption.findOne({
     where: { userId },
-    order: [["updatedAt", "DESC"]],
+    // order: [["updatedAt", "DESC"]],
     raw: true,
   });
   // console.log(getCaptionId)
