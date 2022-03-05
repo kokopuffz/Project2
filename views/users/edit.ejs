@@ -4,7 +4,11 @@
 <img src="<%= caption['catpic.imgurl'] %>" > 
 <h5>prompt: <%= caption['catpic.alttext'] %> </h5>
 
-<form action="/user/kittytree/<%=capid%>/?_method=PUT" method="PUT"> 
-
-
+<form action="/user/kittytree/<%=capid%>/?_method=PUT" method="POST"> 
+  <div> 
+    <h5>your current caption: <%= caption.text  %> </h5>
+    <label for="captionchange">change your caption here: </label>
+    <input type="text" name="caption" id="captionchange" value="<%= caption.tex %> t"></input>
+  </div>
+  <button type="submit">update caption</button>
 </form>
