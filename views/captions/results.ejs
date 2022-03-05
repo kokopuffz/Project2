@@ -12,20 +12,17 @@
         <p><%= caption.text %></p>
         <input
           type="hidden"
-          name="caption"
-          id="capt<%= caption.id  %>"
-          value="<%= caption.id  %>"
+          name="captionuserid"
+          id="captionuserid"
+          value="<%= caption.userId  %>"
         />
         <!-- <button type="submit">vote</button> -->
         <button type="submit" name="votingbutton" id="votingbutton">
           vote
         </button>
-      </li>
+      </form>
       <% }) %>
-    </form>
+    </li>
   </ul>
 </div>
 
-<% for( let index = 0; index < array.length; index++ ) { %>
-
-<% } %>

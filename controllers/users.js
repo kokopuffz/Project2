@@ -128,7 +128,6 @@ router.put('/kittytree/:id', (req, res) => {
 router.get("/newusername", (req, res) => {
   res.render("users/username.ejs");
 });
-// user:res.local.user
 
 //clears cookies
 router.get("/logout", (req, res) => {

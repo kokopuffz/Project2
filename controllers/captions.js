@@ -79,9 +79,11 @@ router.get("/results/:id", async (req, res) => {
   // get all catptions
   const allCaptions = await db.caption.findAll({
     where: { catpicId: id },
+    include: [db.vote],
     raw: true,
   });
-
+console.log(allCaptions)
+  
   // const captionsid = allCaptions.id
   /* This is counting the number of votes for each caption. */
   // const votes = await db.vote.count({
@@ -98,6 +100,7 @@ router.get("/results/:id", async (req, res) => {
 router.post("/results", (req, res) => {
   // let captionid = req.body.captionid;
   // let captionvalue = captionid.value
+  //so for votes i need, the current usersid,captionid
   console.log(user);
   // const getUserVote = await.db
 });
