@@ -4,8 +4,6 @@ const db = require("../models");
 require("dotenv").config();
 const res = require("express/lib/response");
 
-
-
 router.get("/", (req, res) => {
   res.render("captions/index.ejs");
 });
@@ -13,50 +11,73 @@ router.get("/", (req, res) => {
 router.get("/prompt", async (req, res) => {
   const user = res.locals.user;
   const doneCaptions = await db.caption.findAll({
-    where: { userId: user.id }, 
+    where: { userId: user.id },
     order: [["catpicId", "desc"]],
     include: [db.catpic],
     raw: true,
-  })
-  const catpics = await db.catpic.findAll({ 
-    order: [[ "id", "desc" ]],  
-    raw: true
-  })
+  });
 
-console.log(doneCaptions)
-console.log(catpics[-1])
-  res.render("captions/prompt.ejs", { catpics: catpics, donecaps: doneCaptions});
+  const catpics = await db.catpic.findAll({
+    order: [["id", "desc"]],
+    raw: true,
+  });
+
+  //array for all catimgids and user's completedimgids
+  let doneCaptsArr = [];
+  let allPicsArr = [];
+  doneCaptions.forEach((cap) => {
+    doneCaptsArr.push(cap.catpicId);
+  });
+  catpics.forEach((pic) => {
+    allPicsArr.push(pic.id)
+  });
+
+  //compare and get new array with the incompleted imgids
+  let notDoneCapts = allPicsArr.filter(imgid => !doneCaptsArr.includes(imgid)) 
+
+  let idFirstImg = notDoneCapts[0]
+  let picid 
+  //grab entire id object
+  for (let i = 0; i < catpics.length; i++) {
+    if(idFirstImg === catpics[i].id){
+      picid = catpics[i]
+    }
+  }
+  console.log("FINAL ANSWER", picid)
+  console.log(notDoneCapts)
+  console.log(idFirstImg)
+  res.render("captions/prompt.ejs", {
+    notdone: notDoneCapts,
+    picid: picid,
+    firstImg: idFirstImg
+  });
 });
+
 
 router.post("/prompt/", async (req, res) => {
-  console.log("/PROMPT");
-  const picid = req.body.picid;
+  const catpicid = req.body.catpicid;
   //id of image
-  const kittyid = req.body.id
   const caption = req.body.caption;
   const user = res.locals.user;
-  const newCaption = await db.caption.create({
+
+  await db.caption.create({
     userId: user.id,
-    catpicId: picid,
-    text: caption, 
+    catpicId: catpicid,
+    text: caption,
   });
-  
-  res.redirect("/captions/results/picid");
+
+  res.redirect(`/captions/results/${catpicid}`);
 });
+
 
 router.get("/results/:id", async (req, res) => {
   const user = res.locals.user;
-  const userId = user.id;
+  // const picid = req.params.id
+  id = req.params.id)
   //find user's last caption entry and get captionId
-  const getCaptionId = await db.caption.findOne({
-    where: { userId },
-    // order: [["updatedAt", "DESC"]],
-    raw: true,
-  });
-  // console.log(getCaptionId)
+  const picinfo = await db.caption.findbyPk({id});
   const catPicId = getCaptionId.catpicId;
 
-  // console.log(catPicId)
   //get cat picture
   const getCatPic = await db.catpic.findOne({
     where: { id: catPicId },
@@ -82,9 +103,10 @@ router.get("/results/:id", async (req, res) => {
   });
 });
 
-  //get all vote count
-  //vote happens when there is a captionid and a user id
-router.post("/results",  (req, res) => {
+
+//get all vote count
+//vote happens when there is a captionid and a user id
+router.post("/results", (req, res) => {
   // let captionid = req.body.captionid;
   // let captionvalue = captionid.value
   console.log(user);

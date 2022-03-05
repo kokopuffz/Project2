@@ -1,9 +1,12 @@
 <h2>prompt</h2>
-<% let alttext = 1 %> 
-<% let picid = 1 %>  
-
 <div>
-    <% alttext = catpics[picid].alttext %>
+  <% let text %> 
+  <% if(!notdone.length){ %> 
+    <p>YER DONE. GO TRY DEV MODE</p>
+  <% }else{ %> 
+    <h1>PROMPT: <%= text= picid.alttext  %> </h1>
+
+  <% } %> 
 </div>  
 
 <div>
@@ -11,7 +14,7 @@
     <label for="caption">write your caption here:</label>
     <input name="caption" id="caption" />
     <button type="submit">submit caption</button>
-    <input type="hidden" name="catpicid" id="catpicid" value="<%= picid %>" />
+    <input type="hidden" name="catpicid" id="catpicid" value="<%= firstImg %>" />
   </form>
 </div>
 
