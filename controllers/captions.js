@@ -72,16 +72,8 @@ router.post("/prompt/", async (req, res) => {
 
 router.get("/results/:id", async (req, res) => {
   const user = res.locals.user;
-  // const picid = req.params.id
   const id = req.params.id;
-  //find pic by id
-  const picInfo = await db.caption.findOne({
-    where: {
-      userId: user.id,
-      catpicId: id,
-    },
-    include: [db.catpic],
-  });
+  const picInfo = await db.catpic.findOne({id});
   console.log(picInfo);
 
   // get all catptions

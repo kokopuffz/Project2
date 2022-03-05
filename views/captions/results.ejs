@@ -6,9 +6,9 @@
 <div>
   <label for="captions">all captions</label>
   <ul>
-    <form action="/captions/results" method="POST">
+    <li>
       <% captions.forEach(caption => { %>
-      <li>
+        <form action="/captions/results" method="POST">
         <p><%= caption.text %></p>
         <input
           type="hidden"
@@ -25,3 +25,7 @@
     </form>
   </ul>
 </div>
+
+<% for( let index = 0; index < array.length; index++ ) { %>
+
+<% } %>
