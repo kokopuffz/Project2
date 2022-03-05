@@ -91,6 +91,8 @@ router.post("./newusername", async (req, res) => {
   });
 });
 
+
+
 router.get("/kittytree", async (req, res) => {
   const user = res.locals.user;
   console.log(user.id);
@@ -110,11 +112,19 @@ console.log(captions)
 
 //show based on exercise clicked on
 router.get("/kittytree/:id", async (req, res) => {
-  let picId = req.params.id;
-  const catpic = await db.catpic.findByPk(picId);
-  const userCaption = await res.locals.user.getCaptions()
- 
-  res.render("users/edit.ejs", { id: picId, catpic: catpic, usercap: userCaption});
+  let capid = req.params.id;
+  let user = res.locals.user
+  // const userCaption = await res.locals.user.getCaptions()
+  const caption = await db.caption.findOne({ 
+    where: {
+      id: capid,
+    },
+    include: [db.catpic],
+    raw: true,
+  })
+
+    console.log(caption)
+  res.render("users/edit", { capid: capid, caption: caption});
 });
 
 router.put('/kittytree/:id', (req, res) => {

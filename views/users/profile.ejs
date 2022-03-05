@@ -10,21 +10,27 @@
 <div>
   <ul>
     <h3>Your kitty collection!</h3>
-      <% captions.forEach(caption => { %>
+    <% if (captions.length < 1) { %> 
+      <h4>start collecting some now</h4>
+      <% } else { %> 
+        <% captions.forEach(caption => { %>
         <li> 
           <img src="<%=caption['catpic.imgurl']%> "
         </li>
-     <% }) %> 
-  </div>
-
+    <% }) %> 
+  <% } %> 
   </ul>
+</div>
 
 <div>
-  
-  <h3>all your captions</h3>
-<% captions.forEach(caption => { %>
-  <p><%= caption.text %> </p>  
-  <form action="/users/kittytree/<%= caption.text %> "
-    <a href="/users/kittytree/<%= caption.id %>"
-<% }) %>
+  <ul> 
+    <h3>all your captions</h3>
+    <% captions.forEach(caption => { %>
+      <li> 
+
+        <a href="/users/kittytree/<%= caption.id %>"
+        <p><%= caption.text %> </p>  
+      </li>
+    <% }) %>
+  </ul>
 </div>

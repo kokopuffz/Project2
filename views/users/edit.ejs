@@ -1,7 +1,10 @@
+
 <!-- shows all cats, captions, alttexts -->
 <h2>you're in edits!</h2>
-<h5>prompt: <%= catpic.alttext %> </h5>
-<img src="<%= catpic.imgurl %>" > 
-<% if catpic.id === usercap[0].catpicId { %>
-  <p>yer text: <%= usercap[0].text  %> </p>
-  <% } %> 
+<img src="<%= caption['catpic.imgurl'] %>" > 
+<h5>prompt: <%= caption['catpic.alttext'] %> </h5>
+
+<form action="/user/kittytree/<%=capid%>/?_method=PUT" method="PUT"> 
+
+
+</form>
