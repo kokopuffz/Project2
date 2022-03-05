@@ -21,7 +21,6 @@ router.get("/prompt", async (req, res) => {
     order: [["id", "desc"]],
     raw: true,
   });
-
   //array for all catimgids and user's completedimgids
   let doneCaptsArr = [];
   let allPicsArr = [];
@@ -36,7 +35,7 @@ router.get("/prompt", async (req, res) => {
   let notDoneCapts = allPicsArr.filter(
     (imgid) => !doneCaptsArr.includes(imgid)
   );
-
+  
   let idFirstImg = notDoneCapts[0];
   let picid;
   //grab entire id object
@@ -45,9 +44,9 @@ router.get("/prompt", async (req, res) => {
       picid = catpics[i];
     }
   }
-  console.log("FINAL ANSWER", picid);
-  console.log(notDoneCapts);
-  console.log(idFirstImg);
+  console.log("NOT DONE CAPTS", notDoneCapts)
+  console.log("DIS PIC ID" ,idFirstImg)
+  console.log("THIS DA IMG",picid)
   res.render("captions/prompt.ejs", {
     notdone: notDoneCapts,
     picid: picid,
@@ -57,6 +56,7 @@ router.get("/prompt", async (req, res) => {
 
 router.post("/prompt/", async (req, res) => {
   const catpicid = req.body.catpicid;
+  console.log("POST CATPICID", catpicid)
   //id of image
   const caption = req.body.caption;
   const user = res.locals.user;
@@ -82,14 +82,17 @@ router.get("/results/:id", async (req, res) => {
     include: [db.vote],
     raw: true,
   });
-console.log(allCaptions)
+
+  allCaptions.forEach(captions => {
+
+  })
   
   // const captionsid = allCaptions.id
   /* This is counting the number of votes for each caption. */
   // const votes = await db.vote.count({
   //   where:{ captionId: allCaptions.id }
   // })
-  res.render("captions/results.ejs", {
+  res.redirect(`/captions/results/${id}`, {
     catid: picInfo,
     captions: allCaptions,
   });
@@ -97,11 +100,17 @@ console.log(allCaptions)
 
 //get all vote count
 //vote happens when there is a captionid and a user id
-router.post("/results", (req, res) => {
-  // let captionid = req.body.captionid;
-  // let captionvalue = captionid.value
+router.post("/results:id", async (req, res) => {
+  user = res.local.user
+  imgid = req.params.id
+  captionid = req.body.captionuserid
+
+  await db.vote.create({
+    userId: user.id,
+    captionId: captionid,
+  })
   //so for votes i need, the current usersid,captionid
-  console.log(user);
+  // console.log(imgid);
   // const getUserVote = await.db
 });
 

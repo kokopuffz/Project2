@@ -7,21 +7,20 @@
   <label for="captions">all captions</label>
   <ul>
     <li>
-      <% captions.forEach(caption => { %>
+      <% for( let i = 0; i < captions.length; i++ ) { %>
         <form action="/captions/results" method="POST">
-        <p><%= caption.text %></p>
-        <input
-          type="hidden"
-          name="captionuserid"
-          id="captionuserid"
-          value="<%= caption.userId  %>"
-        />
-        <!-- <button type="submit">vote</button> -->
-        <button type="submit" name="votingbutton" id="votingbutton">
-          vote
-        </button>
-      </form>
-      <% }) %>
+          <p><%= captions[i].text %></p>
+          <input
+            type="hidden"
+            name="captionuserid[i]"
+            id="captionuserid[i]"
+            value="<%= captions[i]  %>"
+          />
+          <button type="submit" name="votingbutton[i]" id="votingbutton" value="<%= captions[i].userId %>">
+            vote 
+          </button>
+        </form>
+        <% } %> 
     </li>
   </ul>
 </div>
