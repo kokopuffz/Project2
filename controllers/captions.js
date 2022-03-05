@@ -29,30 +29,31 @@ router.get("/prompt", async (req, res) => {
     doneCaptsArr.push(cap.catpicId);
   });
   catpics.forEach((pic) => {
-    allPicsArr.push(pic.id)
+    allPicsArr.push(pic.id);
   });
 
   //compare and get new array with the incompleted imgids
-  let notDoneCapts = allPicsArr.filter(imgid => !doneCaptsArr.includes(imgid)) 
+  let notDoneCapts = allPicsArr.filter(
+    (imgid) => !doneCaptsArr.includes(imgid)
+  );
 
-  let idFirstImg = notDoneCapts[0]
-  let picid 
+  let idFirstImg = notDoneCapts[0];
+  let picid;
   //grab entire id object
   for (let i = 0; i < catpics.length; i++) {
-    if(idFirstImg === catpics[i].id){
-      picid = catpics[i]
+    if (idFirstImg === catpics[i].id) {
+      picid = catpics[i];
     }
   }
-  console.log("FINAL ANSWER", picid)
-  console.log(notDoneCapts)
-  console.log(idFirstImg)
+  console.log("FINAL ANSWER", picid);
+  console.log(notDoneCapts);
+  console.log(idFirstImg);
   res.render("captions/prompt.ejs", {
     notdone: notDoneCapts,
     picid: picid,
-    firstImg: idFirstImg
+    firstImg: idFirstImg,
   });
 });
-
 
 router.post("/prompt/", async (req, res) => {
   const catpicid = req.body.catpicid;
@@ -69,24 +70,23 @@ router.post("/prompt/", async (req, res) => {
   res.redirect(`/captions/results/${catpicid}`);
 });
 
-
 router.get("/results/:id", async (req, res) => {
   const user = res.locals.user;
   // const picid = req.params.id
-  id = req.params.id)
-  //find user's last caption entry and get captionId
-  const picinfo = await db.caption.findbyPk({id});
-  const catPicId = getCaptionId.catpicId;
-
-  //get cat picture
-  const getCatPic = await db.catpic.findOne({
-    where: { id: catPicId },
-    raw: true,
+  const id = req.params.id;
+  //find pic by id
+  const picInfo = await db.caption.findOne({
+    where: {
+      userId: user.id,
+      catpicId: id,
+    },
+    include: [db.catpic],
   });
+  console.log(picInfo);
 
   // get all catptions
   const allCaptions = await db.caption.findAll({
-    where: { catpicId: catPicId },
+    where: { catpicId: id },
     raw: true,
   });
 
@@ -95,14 +95,11 @@ router.get("/results/:id", async (req, res) => {
   // const votes = await db.vote.count({
   //   where:{ captionId: allCaptions.id }
   // })
-  // // console.log(votes)
-  // // console.log(allCaptions);
   res.render("captions/results.ejs", {
-    catid: getCatPic,
+    catid: picInfo,
     captions: allCaptions,
   });
 });
-
 
 //get all vote count
 //vote happens when there is a captionid and a user id

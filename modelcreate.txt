@@ -168,3 +168,13 @@ seed:generate --name demo-catimgs
     <% } %> 
     <p><%= picid %></p>
     <p><%= alttext %></p>
+
+
+  <% } else { %>  
+    <% catpics.forEach(img => { %>
+      <% if (img.id === picid){ %>
+        <% alttext = img.id.alttext %> 
+      <% } %>  
+    <% }) %> 
+  <% } %> 
+  <h1>prompt issssss: <%= alttext  %></h1> 
