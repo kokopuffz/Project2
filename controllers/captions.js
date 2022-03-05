@@ -90,7 +90,7 @@ router.get("/results/:id", async (req, res) => {
   // const votes = await db.vote.count({
   //   where:{ captionId: allCaptions.id }
   // })
-  res.redirect(`/captions/results/${id}`, {
+  res.render("captions/results", {
     catid: picInfo,
     captions: allCaptions,
   });

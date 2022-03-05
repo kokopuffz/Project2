@@ -8,14 +8,23 @@
 </div>
 
 <div>
-  <h3>check out your cats!</h3>
-</div>
+  <ul>
+    <h3>Your kitty collection!</h3>
+      <% captions.forEach(caption => { %>
+        <li> 
+          <img src="<%=caption['catpic.imgurl']%> "
+        </li>
+     <% }) %> 
+  </div>
+
+  </ul>
+
 <div>
-  <h3>all comments</h3>
+  
+  <h3>all your captions</h3>
 <% captions.forEach(caption => { %>
+  <p><%= caption.text %> </p>  
+  <form action="/users/kittytree/<%= caption.text %> "
     <a href="/users/kittytree/<%= caption.id %>"
-        <img src="<%=caption['catpic.imgurl']%>" >
-        <p><%= caption.text %> </p>  
-        <form action="/users/kittytree/<%= caption.text  %> "
 <% }) %>
 </div>

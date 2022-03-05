@@ -92,7 +92,6 @@ router.post("./newusername", async (req, res) => {
 });
 
 router.get("/kittytree", async (req, res) => {
-  // const id = req.params.id
   const user = res.locals.user;
   console.log(user.id);
   // const captions = await res.locals.user.getCaptions();
@@ -105,9 +104,6 @@ router.get("/kittytree", async (req, res) => {
     raw: true,
   });
 
-  // const catpic = await db.catpic.findOne({
-  //   where: { id: catpicId },
-  // });
 console.log(captions)
   res.render("users/profile.ejs", { captions: captions });
 });
