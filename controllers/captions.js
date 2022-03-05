@@ -83,9 +83,7 @@ router.get("/results/:id", async (req, res) => {
     raw: true,
   });
 
-  allCaptions.forEach(captions => {
 
-  })
   
   // const captionsid = allCaptions.id
   /* This is counting the number of votes for each caption. */

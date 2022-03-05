@@ -14,7 +14,7 @@
   <h3>all comments</h3>
 <% captions.forEach(caption => { %>
     <a href="/users/kittytree/<%= caption.id %>"
-        <img src="<%=caption['catpic.imgurl']"%> >
+        <img src="<%=caption['catpic.imgurl']%>" >
         <p><%= caption.text %> </p>  
         <form action="/users/kittytree/<%= caption.text  %> "
 <% }) %>
