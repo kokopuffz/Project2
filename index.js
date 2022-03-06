@@ -49,6 +49,11 @@ app.use(async (req, res, next) => {
 app.use("/users", require("./controllers/users.js"));
 app.use("/captions", require("./controllers/captions.js"));
 
+
+axios(catConfig).then(function (response) {
+  console.log(JSON.stringify(response.data));
+});
+
 // ROUTES
 app.get("/", (req, res) => {
   res.render("home.ejs");

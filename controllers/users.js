@@ -15,9 +15,6 @@ router.get("/", (req, res) => {
   res.render("home.ejs");
 });
 
-
-
-
 //get info to create account
 router.post("/", async (req, res) => {
   const [newUser, created] = await db.user.findOrCreate({
