@@ -373,6 +373,29 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          imgurl: "https://cdn.discordapp.com/attachments/919468128432455700/919468722291355718/02C9B4D1-C8CF-4BAA-9754-5214BA23C5DF.jpg",
+          picid: "aWVfoSN_K",
+          alttext: "small kitten sleeping on a small oll",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          imgurl:
+            "https://cdn.discordapp.com/attachments/296063428043341834/919118232261107712/image0.jpg",
+          picid: "ham1",
+          alttext: "grey-white cat tearing apart a paper towel",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          imgurl:
+            "https://cdn.discordapp.com/attachments/919468128432455700/940403147661262868/IMG_5931.jpg",
+          picid: "leia",
+          alttext: "fluffy cat with princess leia buns looking displeased",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
