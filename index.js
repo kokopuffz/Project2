@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const cryptoJS = require("crypto-js");
 const db = require("./models/index.js");
 const axios = require("axios");
+const methodOverride = require("method-override")
 const catUrl = `https://thecatapi.com/v1/images/search?api_key=${process.env.CAT_API_KEY}`;
 const catConfig = {
   method: "get",
@@ -23,7 +24,8 @@ app.use(cookieParser()); //gives us access to req.cookies
 app.use(ejsLayouts); // tell express we want to use layouts
 app.use(express.urlencoded({ extended: false })); //bodyparser to make our req.body work
 const PORT = process.env.PORT || 8000;
-// check for an env PORT, otherwise use 8000
+// check for an env PORT, otherwise use 8000'
+app.use(methodOverride('_method'))
 
 //CUSTOM LOGIN MIDDLEWARE
 app.use(async (req, res, next) => {

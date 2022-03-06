@@ -94,8 +94,8 @@ router.post("./newusername", async (req, res) => {
 
 
 router.get("/kittytree", async (req, res) => {
+  console.log("GET /KITTYTREE");
   const user = res.locals.user;
-  console.log(user.id);
   // const captions = await res.locals.user.getCaptions();
   const captions = await db.caption.findAll({
     where: {
@@ -106,15 +106,33 @@ router.get("/kittytree", async (req, res) => {
     raw: true,
   });
 
-console.log(captions)
+  console.log(captions)
   res.render("users/profile.ejs", { captions: captions });
 });
-
-//show based on exercise clicked on
-router.get("/kittytree/:id", async (req, res) => {
+//edit form
+router.put("/kittytree/:id", async (req, res) => {
+  console.log("PUTTTSS: /kittytree/:id");
+  console.log("PARAMS:", req.params);
   let capid = req.params.id;
-  let user = res.locals.user
-  // const userCaption = await res.locals.user.getCaptions()
+
+  const foundCaption = await db.caption.findOne({
+    where: {
+      id: capid,
+    },
+  });
+  console.log("foundCaption BEFORE:", foundCaption);
+  foundCaption.update({
+    text: req.body.caption,
+  });
+  await foundCaption.save();
+  console.log("foundCaption AFTER:", foundCaption);
+  res.redirect(`/users/kittytree`);
+});
+//show based on caption clicked
+router.get("/kittytree/:id", async (req, res) => {
+   console.log("GET /KITTYTREE/:ID");
+  let capid = req.params.id;
+
   const caption = await db.caption.findOne({ 
     where: {
       id: capid,
@@ -122,14 +140,8 @@ router.get("/kittytree/:id", async (req, res) => {
     include: [db.catpic],
     raw: true,
   })
-
-    console.log(caption)
   res.render("users/edit", { capid: capid, caption: caption});
 });
-
-router.put('/kittytree/:id', (req, res) => {
-  let picId = req.params.id 
-})
 
 router.get("/newusername", (req, res) => {
   res.render("users/username.ejs");
