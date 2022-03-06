@@ -141,10 +141,14 @@ router.get("/kittytree/:id/edit", async (req, res) => {
   res.render(`users/edit`, { capid: capid, caption: caption});
 });
 
-router.delete("/kittytree/:id", async (req, res) => {
+router.delete("/kittytree/:id/edit", async (req, res) => {
+  console.log("DELETE kitty/:id")
   const foundCaption = await db.caption.findOne({ 
-    where: {}
+    where: { id: req.params.id } 
   })
+  console.log("found caption",foundCaption)
+  await foundCaption.destroy()
+  res.redirect('/users/kittytree')
 })
 router.get("/newusername", (req, res) => {
   res.render("users/username.ejs");

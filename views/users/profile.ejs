@@ -3,16 +3,21 @@
   <h2>meow! <%= user.username %></h2>
   <% } else { %>
   <h2>hello <%= user.email %> !</h2>
-  <a href="/users/newusername">would you like to create a username?</a>
+  <p>would you like us to call you <a href="/users/newusername">something else?</a></p>
   <% } %>
+</div>
+<div>
+  <h3>WELCOME TO YOUR KITTY-TREE</h3>
+  <p>This is where you can view all the cats you've collected throughout your CAT-ptioning journey. You can also view all your comments here. You are welcome to edit or delete your captions to experience them again :3</p>
 </div>
 
 <div>
   <ul>
-    <h3>Your kitty collection!</h3>
     <% if (captions.length < 1) { %> 
-      <h4>start collecting some now</h4>
+      <h4>You have 0 cats. Start collecting some right    <a href="/captions/prompt"><button class="" >MEOW!</button></a></h4>
+   
       <% } else { %> 
+        <h3>Your kitty collection!</h3>
         <% captions.forEach(caption => { %>
         <li> 
           <img src="<%=caption['catpic.imgurl']%> "
@@ -24,6 +29,7 @@
 
 <div>
   <ul> 
+    <% if (captions.length > 0) { %> 
     <h3>all your captions</h3>
     <% captions.forEach(caption => { %>
       <li> 
@@ -32,5 +38,6 @@
         <p><%= caption.text %> </p>  
       </li>
     <% }) %>
+    <% } %> 
   </ul>
 </div>
