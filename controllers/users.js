@@ -14,11 +14,9 @@ require("dotenv").config();
 router.get("/", (req, res) => {
   res.render("home.ejs");
 });
-//user signup page
 
-router.get("/login", (req, res) => {
-  res.render("users/login.ejs", { error: null });
-});
+
+
 
 //get info to create account
 router.post("/", async (req, res) => {
@@ -84,6 +82,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/login", (req, res) => {
+  res.render("users/login.ejs", { error: null });
+});
+
 //create username
 router.post("./newusername", async (req, res) => {
   const username = await db.user.findOne({
@@ -110,7 +112,7 @@ router.get("/kittytree", async (req, res) => {
   res.render("users/profile.ejs", { captions: captions });
 });
 //edit form
-router.put("/kittytree/:id", async (req, res) => {
+router.put("/kittytree/:id/edit", async (req, res) => {
   console.log("PUTTTSS: /kittytree/:id");
   console.log("PARAMS:", req.params);
   let capid = req.params.id;
@@ -129,7 +131,7 @@ router.put("/kittytree/:id", async (req, res) => {
   res.redirect(`/users/kittytree`);
 });
 //show based on caption clicked
-router.get("/kittytree/:id", async (req, res) => {
+router.get("/kittytree/:id/edit", async (req, res) => {
    console.log("GET /KITTYTREE/:ID");
   let capid = req.params.id;
 
@@ -140,12 +142,18 @@ router.get("/kittytree/:id", async (req, res) => {
     include: [db.catpic],
     raw: true,
   })
-  res.render("users/edit", { capid: capid, caption: caption});
+  res.render(`users/edit`, { capid: capid, caption: caption});
 });
 
+router.delete("/kittytree/:id", async (req, res) => {
+  const foundCaption = await db.caption.findOne({ 
+    where: {}
+  })
+})
 router.get("/newusername", (req, res) => {
   res.render("users/username.ejs");
 });
+
 
 //clears cookies
 router.get("/logout", (req, res) => {

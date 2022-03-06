@@ -1,4 +1,8 @@
 
+<% if (error) { %> 
+  <em style="color:red"><%= error %> </em>
+<% } %> 
+
 <form action="/users" method="POST">
   <label for="email">Email:</label>
   <input type="email" name="email" id="email">

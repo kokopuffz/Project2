@@ -1,19 +1,16 @@
-<h2>prompt</h2>
 <div>
   <% let text %> 
   <% if(!notdone.length){ %> 
-    <p>YER DONE. GO TRY DEV MODE</p>
+    <p>YER DONE. GO TRY DEV MODE....oh i'm still working on it. MY BAD.</p>
   <% }else{ %> 
     <h1>PROMPT: <%= text= picid.alttext  %> </h1>
-    </div>  
-
-<div>
-  <form action="/captions/prompt/" method="POST">
-    <label for="caption">write your caption here:</label>
-    <input name="caption" id="caption" />
-    <button type="submit">submit caption</button>
-    <input type="hidden" name="catpicid" id="catpicid" value="<%= firstImg %>" />
-  </form>
+    <form action="/captions/prompt/" method="POST">
+      <label for="caption">write your caption here:</label>
+      <input name="caption" id="caption" />
+      <button type="submit">submit caption</button>
+      <input type="hidden" name="catpicid" id="catpicid" value="<%= firstImg %>" />
+    </form>
   <% } %> 
-</div>
+</div>  
+
 
