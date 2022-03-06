@@ -7,13 +7,12 @@ const res = require("express/lib/response");
 const { user } = require("pg/lib/defaults");
 require("dotenv").config();
 
-// axios(catConfig).then(function (response) {
-//   console.log(JSON.stringify(response.data));
-// });
+
 
 router.get("/", (req, res) => {
   res.render("home.ejs");
 });
+
 
 //get info to create account
 router.post("/", async (req, res) => {

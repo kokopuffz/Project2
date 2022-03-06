@@ -4,8 +4,8 @@ const db = require("../models");
 require("dotenv").config();
 const res = require("express/lib/response");
 
-router.get("/", (req, res) => {
-  res.render("captions/index.ejs");
+router.get("/instructions", (req, res) => {
+  res.render("captions/instructions.ejs");
 });
 
 //start of game, gets catpic and caption tables to determine which prompt is avail to them
@@ -67,6 +67,7 @@ router.post("/prompt/", async (req, res) => {
     catpicId: catpicid,
     text: caption,
   });
+  
 
   res.redirect(`/captions/results/${catpicid}`);
 });
@@ -100,21 +101,16 @@ router.get("/results/:id", async (req, res) => {
   }))
   console.log("CAPTIONS WITH VOTES", captionsWithVotes)
   console.log("USERID:", user.id)
-  console.log("capID:", captionsWithVotes[1]["votes.userId"]);
 
-  // //check if current user voted
-  // let userVoted = 
-  // captionsWithVotes.forEach(cap => {
-  //   if (cap['votes.userId'] === user.id){
+  if(!captionsWithVotes){
+    res.redirect("/captions/prompt")
+  } else {
+    res.render("captions/results", {
+      catid: picInfo,
+      captions: captionsWithVotes,
+    });
+  }
 
-  //   }
-  // })
-  // console.log("VOTED:", userVoted)
-
-  res.render("captions/results", {
-    catid: picInfo,
-    captions: captionsWithVotes,
-  });
 });
 
 //get all vote count

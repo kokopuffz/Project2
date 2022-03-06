@@ -376,7 +376,7 @@ module.exports = {
         {
           imgurl: "https://cdn.discordapp.com/attachments/919468128432455700/919468722291355718/02C9B4D1-C8CF-4BAA-9754-5214BA23C5DF.jpg",
           picid: "aWVfoSN_K",
-          alttext: "small kitten sleeping on a small oll",
+          alttext: "small kitten sleeping on a small doll",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
