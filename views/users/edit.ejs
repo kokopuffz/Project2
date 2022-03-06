@@ -8,7 +8,7 @@
   <div> 
     <h5>your current caption: <%= caption.text  %> </h5>
     <label for="captionchange">change your caption here: </label>
-    <input type="text" name="caption" id="captionchange" value="<%= caption.tex %> t"></input>
+    <input type="text" name="caption" id="captionchange" value="<%= caption.text %>" <%= caption.text %> ></input>
   </div>
   <button type="submit">update caption</button>
 </form>

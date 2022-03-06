@@ -4,19 +4,19 @@
 </div>
 
 <div>
-  <label for="captions">all captions</label>
   <ul>
     <li>
-      <% for( let i = 0; i < captions.length; i++ ) { %>
-        <form action="/captions/results" method="POST">
+      <label for="captions">all captions</label>
+      <% for( let i = 0; i < captions.length; i++ ) { %> 
+        <form action="/captions/results/<%=captions[i].id %>/vote" method="POST">
           <p><%= captions[i].text %></p>
+          <p><%= captions[i].votes %></p>
           <input
             type="hidden"
-            name=captionuserid[i]
-            id="captionuserid[i]"
-            value="<%= captions[i]  %>"
+            name="imageid"
+            value="<%= captions[i].catpicId%>"
           />
-          <button type="submit" name="votingbutton[i]" id="votingbutton" value="<%= captions[i].userId %>">
+          <button type="submit" name="" id="votingbutton" value="">
             vote 
           </button>
         </form>

@@ -5,9 +5,7 @@
     <p>YER DONE. GO TRY DEV MODE</p>
   <% }else{ %> 
     <h1>PROMPT: <%= text= picid.alttext  %> </h1>
-
-  <% } %> 
-</div>  
+    </div>  
 
 <div>
   <form action="/captions/prompt/" method="POST">
@@ -16,5 +14,6 @@
     <button type="submit">submit caption</button>
     <input type="hidden" name="catpicid" id="catpicid" value="<%= firstImg %>" />
   </form>
+  <% } %> 
 </div>
 

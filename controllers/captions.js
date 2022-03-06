@@ -8,6 +8,7 @@ router.get("/", (req, res) => {
   res.render("captions/index.ejs");
 });
 
+//start of game, gets catpic and caption tables to determine which prompt is avail to them
 router.get("/prompt", async (req, res) => {
   const user = res.locals.user;
   const doneCaptions = await db.caption.findAll({
@@ -44,10 +45,10 @@ router.get("/prompt", async (req, res) => {
       picid = catpics[i];
     }
   }
-  console.log("NOT DONE CAPTS", notDoneCapts)
-  console.log("DIS PIC ID" ,idFirstImg)
-  console.log("THIS DA IMG",picid)
-  res.render("captions/prompt.ejs", {
+  // console.log("NOT DONE CAPTS", notDoneCapts)
+  // console.log("DIS PIC ID" ,idFirstImg)
+  // console.log("THIS DA IMG",picid)
+  res.render(`captions/prompt.ejs`, {
     notdone: notDoneCapts,
     picid: picid,
     firstImg: idFirstImg,
@@ -71,45 +72,62 @@ router.post("/prompt/", async (req, res) => {
 });
 
 router.get("/results/:id", async (req, res) => {
+  console.log("GET RESULTS:id");
   const user = res.locals.user;
-  const id = req.params.id;
-  const picInfo = await db.catpic.findOne({id});
-  console.log(picInfo);
+  const imgid = req.params.id;
+  console.log("ID:", imgid)
+  const picInfo = await db.catpic.findOne({
+    where: { 
+      id: imgid
+    }
+  });
+  console.log("PIC INFO", picInfo);
 
   // get all catptions
   const allCaptions = await db.caption.findAll({
-    where: { catpicId: id },
+    where: { catpicId: imgid },
     include: [db.vote],
     raw: true,
   });
-
-
-  
+ 
+  console.log("ALLCAPTS", allCaptions);
   // const captionsid = allCaptions.id
   /* This is counting the number of votes for each caption. */
-  // const votes = await db.vote.count({
-  //   where:{ captionId: allCaptions.id }
-  // })
+
+  let captionsWithVotes = await Promise.all(allCaptions.map( async cap => {
+    const votes = await db.vote.count({
+      where: { captionId: cap.id },
+    });
+    cap.votes = votes
+    return cap
+  }))
+
+  console.log("CAPTIONS WITH VOTES", captionsWithVotes)
+
   res.render("captions/results", {
     catid: picInfo,
-    captions: allCaptions,
+    captions: captionsWithVotes,
   });
 });
 
 //get all vote count
 //vote happens when there is a captionid and a user id
-router.post("/results:id", async (req, res) => {
-  user = res.local.user
-  imgid = req.params.id
-  captionid = req.body.captionuserid
+router.post("/results/:id/vote", async (req, res) => {
+  console.log("POST /results/:id/vote");
+  console.log("BODY", req.body)
+  console.log("PARAMS", req.params)
+  console.log("imageid:", req.body.imageid)
+  user = res.locals.user
+  imageid = req.body.imageid
+  captionid = req.params.id
 
   await db.vote.create({
     userId: user.id,
     captionId: captionid,
   })
   //so for votes i need, the current usersid,captionid
-  // console.log(imgid);
   // const getUserVote = await.db
+  res.redirect(`/captions/results/${imageid}`)
 });
 
 module.exports = router;
