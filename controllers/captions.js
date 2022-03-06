@@ -89,10 +89,7 @@ router.get("/results/:id", async (req, res) => {
     include: [db.vote],
     raw: true,
   });
- 
   console.log("ALLCAPTS", allCaptions);
-  // const captionsid = allCaptions.id
-  /* This is counting the number of votes for each caption. */
 
   let captionsWithVotes = await Promise.all(allCaptions.map( async cap => {
     const votes = await db.vote.count({
@@ -101,8 +98,18 @@ router.get("/results/:id", async (req, res) => {
     cap.votes = votes
     return cap
   }))
-
   console.log("CAPTIONS WITH VOTES", captionsWithVotes)
+  console.log("USERID:", user.id)
+  console.log("capID:", captionsWithVotes[1]["votes.userId"]);
+
+  // //check if current user voted
+  // let userVoted = 
+  // captionsWithVotes.forEach(cap => {
+  //   if (cap['votes.userId'] === user.id){
+
+  //   }
+  // })
+  // console.log("VOTED:", userVoted)
 
   res.render("captions/results", {
     catid: picInfo,
@@ -125,8 +132,8 @@ router.post("/results/:id/vote", async (req, res) => {
     userId: user.id,
     captionId: captionid,
   })
-  //so for votes i need, the current usersid,captionid
-  // const getUserVote = await.db
+
+
   res.redirect(`/captions/results/${imageid}`)
 });
 
