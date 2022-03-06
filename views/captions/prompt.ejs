@@ -1,15 +1,23 @@
 <div>
   <% let text %> 
   <% if(!notdone.length){ %> 
-    <p>YER DONE. GO TRY DEV MODE....oh i'm still working on it. MY BAD.</p>
+    <h3>WOW! YER DONE</h3>
+      <h5>You've collected them all!! GO TRY DEV MODE<small class="text-muted">....oh i'm still working on it. MY BAD. </small></h5>
+      <p><em>::working in progress::</em></p>
+</div>
   <% }else{ %> 
-    <h1>PROMPT: <%= text= picid.alttext  %> </h1>
-    <form action="/captions/prompt/" method="POST">
-      <label for="caption">write your caption here:</label>
-      <input name="caption" id="caption" />
-      <button type="submit">submit caption</button>
-      <input type="hidden" name="catpicid" id="catpicid" value="<%= firstImg %>" />
-    </form>
+<div>
+  <form action="/captions/prompt/" method="POST">
+    <fieldset>
+      <legend>PROMPT: <%= text= picid.alttext  %> </legend>
+      <div class="form-group">
+        <label for="caption" class="form-label mt-4">write your caption here:</label>
+        <input class="form-control" name="caption" id="caption" row="2"/>
+        <input type="hidden" name="catpicid" id="catpicid" value="<%= firstImg %>" />
+      </div>
+      <button class="btn btn-primary" type="submit">submit caption</button>
+    </fieldset>
+  </form>
   <% } %> 
 </div>  
 
