@@ -16,17 +16,20 @@ module.exports = (sequelize, DataTypes) => {
       models.user.hasMany(models.vote, {onDelete: 'cascade' })
     }
   }
-  user.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    username: {
-      type: DataTypes.STRING,
-      allowNull:true,
-      unique:true
+  user.init(
+    {
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      username: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
+    },
+    {
+      sequelize,
+      modelName: "user",
     }
-  }, {
-    sequelize,
-    modelName: 'user',
-  });
+  );
   return user;
 };

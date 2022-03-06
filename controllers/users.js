@@ -143,13 +143,22 @@ router.get("/kittytree/:id/edit", async (req, res) => {
 
 router.delete("/kittytree/:id/edit", async (req, res) => {
   console.log("DELETE kitty/:id")
-  const foundCaption = await db.caption.findOne({ 
-    where: { id: req.params.id } 
-  })
-  console.log("found caption",foundCaption)
-  await foundCaption.destroy()
-  res.redirect('/users/kittytree')
+  if (req.cookies.userId) {
+    try {
+      const foundCaption = await db.caption.findOne({ 
+        where: { id: req.params.id } 
+      })
+      console.log("found caption",foundCaption)
+      await foundCaption.destroy()
+      res.redirect('/users/kittytree')
+    } catch (err) {
+    console.log(err)
+    } 
+  } else { 
+    res.redirect("users/login")
+  }
 })
+
 router.get("/newusername", (req, res) => {
   res.render("users/username.ejs");
 });

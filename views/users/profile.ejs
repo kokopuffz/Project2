@@ -7,17 +7,18 @@
   <% } %>
 </div>
 <div>
-  <h3>WELCOME TO YOUR KITTY-TREE</h3>
+  <h3>WELCOME TO YOUR KITTY-TREE </h3>
+  <h4>aka your profile page</h4>
   <p>This is where you can view all the cats you've collected throughout your CAT-ptioning journey. You can also view all your comments here. You are welcome to edit or delete your captions to experience them again :3</p>
 </div>
 
 <div>
-  <ul>
-    <% if (captions.length < 1) { %> 
-      <h4>You have 0 cats. Start collecting some right    <a href="/captions/prompt"><button class="" >MEOW!</button></a></h4>
-   
-      <% } else { %> 
-        <h3>Your kitty collection!</h3>
+  <% if (captions.length < 1) { %> 
+    <h4>You have 0 cats. Start collecting some right    <a href="/captions/prompt"><button class="" >MEOW!</button></a></h4>
+    
+    <% } else { %> 
+      <h3>Your kitty collection!</h3>
+      <ul>
         <% captions.forEach(caption => { %>
         <li> 
           <img src="<%=caption['catpic.imgurl']%> "
@@ -33,7 +34,6 @@
     <h3>all your captions</h3>
     <% captions.forEach(caption => { %>
       <li> 
-
         <a href="/users/kittytree/<%= caption.id %>/edit"
         <p><%= caption.text %> </p>  
       </li>
