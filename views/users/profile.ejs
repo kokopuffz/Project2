@@ -20,8 +20,12 @@
       <h3>Your kitty collection!</h3>
       <ul>
         <% captions.forEach(caption => { %>
+      <div class="row>
+        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0"> 
+          <img class="img-thumbnail w-100 shadow-1-strong rounded mb-4" src="<%=caption['catpic.imgurl']%> "
+        </div>
+      </div>
         <li> 
-          <img class="img-thumbnail" src="<%=caption['catpic.imgurl']%> "
         </li>
     <% }) %> 
   <% } %> 

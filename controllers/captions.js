@@ -11,10 +11,10 @@ router.get("/instructions", (req, res) => {
 //start of game, gets catpic and caption tables to determine which prompt is avail to them
 router.get("/prompt", async (req, res) => {
   console.log("GET /PROMPT")
-  console.log(res.cookies)
-  if (req.cookies.userId){
+  const user = res.locals.user;
+  console.log(user)
+  if (req.cookies.userId) {
     try {
-      const user = res.locals.user;
       const doneCaptions = await db.caption.findAll({
         where: { userId: user.id },
         order: [["catpicId", "desc"]],
@@ -35,12 +35,12 @@ router.get("/prompt", async (req, res) => {
       catpics.forEach((pic) => {
         allPicsArr.push(pic.id);
       });
-    
+
       //compare and get new array with the incompleted imgids
       let notDoneCapts = allPicsArr.filter(
         (imgid) => !doneCaptsArr.includes(imgid)
       );
-      
+      console.log(notDoneCapts.length)
       let idFirstImg = notDoneCapts[0];
       let picid;
       //grab entire id object
@@ -57,26 +57,25 @@ router.get("/prompt", async (req, res) => {
         picid: picid,
         firstImg: idFirstImg,
       });
-
-    } catch(err) { 
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
-
-  } else { 
-    res.redirect("/users/login")
+  } else {
+    res.redirect("/users/login");
   } 
 });
 
 router.post("/prompt/", async (req, res) => {
   console.log("@POST /PROMPT")
+  const catpicid = req.body.catpicid;
+  console.log("POST CATPICID", catpicid)
+  //id of image
+  const caption = req.body.caption;
+  const user = res.locals.user;
+  console.log("userid:", user.id);
+  
   if (req.cookies.userId) {
     try {
-      const catpicid = req.body.catpicid;
-      console.log("POST CATPICID", catpicid)
-      //id of image
-      const caption = req.body.caption;
-      const user = res.locals.user;
-    
       await db.caption.create({
         userId: user.id,
         catpicId: catpicid,
