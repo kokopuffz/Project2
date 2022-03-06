@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended: false })); //bodyparser to make our req.b
 const PORT = process.env.PORT || 8000;
 // check for an env PORT, otherwise use 8000'
 app.use(methodOverride('_method'))
+app.use('/public', express.static('public'))
 
 //CUSTOM LOGIN MIDDLEWARE
 app.use(async (req, res, next) => {
