@@ -84,61 +84,78 @@ router.get("/login", (req, res) => {
 
 //create username
 router.post("./newusername", async (req, res) => {
-  const username = await db.user.findOne({
-    where: { username: req.body.username },
-  });
+  if (req.cookies.userId){
+    try {
+      const username = await db.user.findOne({
+        where: { username: req.body.username },
+      });
+    } catch(err) {
+      console.log("err", err)
+    }
+  } else {
+    res.redirect("/users/login");
+  }
 });
 
 
-
+//profilepage
 router.get("/kittytree", async (req, res) => {
   console.log("GET /KITTYTREE");
   const user = res.locals.user;
-  // const captions = await res.locals.user.getCaptions();
-  const captions = await db.caption.findAll({
-    where: {
-      userId: user.id,
-    },
-    include: [db.catpic],
-    // include:[db.vote],
-    raw: true,
-  });
-
-  console.log(captions)
-  res.render("users/profile.ejs", { captions: captions });
+  if (req.cookies.userId) {
+    const captions = await db.caption.findAll({
+      where: {
+        userId: user.id,
+      },
+      include: [db.catpic],
+      // include:[db.vote],
+      raw: true,
+    });
+    console.log(captions)
+    res.render("users/profile.ejs", { captions: captions });
+  } else {
+    res.redirect("/users/login")
+  }
 });
 //edit form
 router.put("/kittytree/:id/edit", async (req, res) => {
   console.log("PUTTTSS: /kittytree/:id");
   console.log("PARAMS:", req.params);
   let capid = req.params.id;
-
-  const foundCaption = await db.caption.findOne({
-    where: {
-      id: capid,
-    },
-  });
-  console.log("foundCaption BEFORE:", foundCaption);
-  foundCaption.update({
-    text: req.body.caption,
-  });
-  await foundCaption.save();
-  console.log("foundCaption AFTER:", foundCaption);
-  res.redirect(`/users/kittytree`);
+  
+  try {
+    const foundCaption = await db.caption.findOne({
+      where: {
+        id: capid,
+      },
+    });
+    console.log("foundCaption BEFORE:", foundCaption);
+    foundCaption.update({
+      text: req.body.caption,
+    });
+    await foundCaption.save();
+    console.log("foundCaption AFTER:", foundCaption);
+    res.redirect(`/users/kittytree`);
+  } catch(err) {
+    console.log("err", err)
+  }
 });
 //show based on caption clicked
 router.get("/kittytree/:id/edit", async (req, res) => {
-   console.log("GET /KITTYTREE/:ID");
+  console.log("GET /KITTYTREE/:ID");
   let capid = req.params.id;
-
-  const caption = await db.caption.findOne({ 
-    where: {
-      id: capid,
-    },
-    include: [db.catpic],
-    raw: true,
-  })
-  res.render(`users/edit`, { capid: capid, caption: caption});
+  try {
+    const caption = await db.caption.findOne({ 
+      where: {
+        id: capid,
+      },
+      include: [db.catpic],
+      raw: true,
+    })
+    res.render(`users/edit`, { capid: capid, caption: caption});
+  } catch(err) {
+    console.log(err)
+  }
 });
 
 router.delete("/kittytree/:id/edit", async (req, res) => {

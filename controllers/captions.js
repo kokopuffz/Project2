@@ -10,66 +10,87 @@ router.get("/instructions", (req, res) => {
 
 //start of game, gets catpic and caption tables to determine which prompt is avail to them
 router.get("/prompt", async (req, res) => {
-  const user = res.locals.user;
-  const doneCaptions = await db.caption.findAll({
-    where: { userId: user.id },
-    order: [["catpicId", "desc"]],
-    include: [db.catpic],
-    raw: true,
-  });
+  console.log("GET /PROMPT")
+  console.log(res.cookies)
+  if (req.cookies.userId){
+    try {
+      const user = res.locals.user;
+      const doneCaptions = await db.caption.findAll({
+        where: { userId: user.id },
+        order: [["catpicId", "desc"]],
+        include: [db.catpic],
+        raw: true,
+      });
 
-  const catpics = await db.catpic.findAll({
-    order: [["id", "desc"]],
-    raw: true,
-  });
-  //array for all catimgids and user's completedimgids
-  let doneCaptsArr = [];
-  let allPicsArr = [];
-  doneCaptions.forEach((cap) => {
-    doneCaptsArr.push(cap.catpicId);
-  });
-  catpics.forEach((pic) => {
-    allPicsArr.push(pic.id);
-  });
+      const catpics = await db.catpic.findAll({
+        order: [["id", "desc"]],
+        raw: true,
+      });
+      //array for all catimgids and user's completedimgids
+      let doneCaptsArr = [];
+      let allPicsArr = [];
+      doneCaptions.forEach((cap) => {
+        doneCaptsArr.push(cap.catpicId);
+      });
+      catpics.forEach((pic) => {
+        allPicsArr.push(pic.id);
+      });
+    
+      //compare and get new array with the incompleted imgids
+      let notDoneCapts = allPicsArr.filter(
+        (imgid) => !doneCaptsArr.includes(imgid)
+      );
+      
+      let idFirstImg = notDoneCapts[0];
+      let picid;
+      //grab entire id object
+      for (let i = 0; i < catpics.length; i++) {
+        if (idFirstImg === catpics[i].id) {
+          picid = catpics[i];
+        }
+      }
+      // console.log("NOT DONE CAPTS", notDoneCapts)
+      // console.log("DIS PIC ID" ,idFirstImg)
+      // console.log("THIS DA IMG",picid)
+      res.render(`captions/prompt.ejs`, {
+        notdone: notDoneCapts,
+        picid: picid,
+        firstImg: idFirstImg,
+      });
 
-  //compare and get new array with the incompleted imgids
-  let notDoneCapts = allPicsArr.filter(
-    (imgid) => !doneCaptsArr.includes(imgid)
-  );
-  
-  let idFirstImg = notDoneCapts[0];
-  let picid;
-  //grab entire id object
-  for (let i = 0; i < catpics.length; i++) {
-    if (idFirstImg === catpics[i].id) {
-      picid = catpics[i];
+    } catch(err) { 
+      console.log(err)
     }
-  }
-  // console.log("NOT DONE CAPTS", notDoneCapts)
-  // console.log("DIS PIC ID" ,idFirstImg)
-  // console.log("THIS DA IMG",picid)
-  res.render(`captions/prompt.ejs`, {
-    notdone: notDoneCapts,
-    picid: picid,
-    firstImg: idFirstImg,
-  });
+
+  } else { 
+    res.redirect("/users/login")
+  } 
 });
 
 router.post("/prompt/", async (req, res) => {
-  const catpicid = req.body.catpicid;
-  console.log("POST CATPICID", catpicid)
-  //id of image
-  const caption = req.body.caption;
-  const user = res.locals.user;
+  console.log("@POST /PROMPT")
+  if (req.cookies.userId) {
+    try {
+      const catpicid = req.body.catpicid;
+      console.log("POST CATPICID", catpicid)
+      //id of image
+      const caption = req.body.caption;
+      const user = res.locals.user;
+    
+      await db.caption.create({
+        userId: user.id,
+        catpicId: catpicid,
+        text: caption,
+      });
+      
+      res.redirect(`/captions/results/${catpicid}`);
 
-  await db.caption.create({
-    userId: user.id,
-    catpicId: catpicid,
-    text: caption,
-  });
-  
-
-  res.redirect(`/captions/results/${catpicid}`);
+    } catch(err) {
+      console.log(err)
+    }
+  } else {
+    res.redirect("/users/login")
+  }
 });
 
 router.get("/results/:id", async (req, res) => {
@@ -77,40 +98,50 @@ router.get("/results/:id", async (req, res) => {
   const user = res.locals.user;
   const imgid = req.params.id;
   console.log("ID:", imgid)
-  const picInfo = await db.catpic.findOne({
-    where: { 
-      id: imgid
+
+  if(req.cookies.userId){
+    try {
+      const picInfo = await db.catpic.findOne({
+        where: { 
+          id: imgid
+        }
+      });
+      console.log("PIC INFO", picInfo);
+    
+      // get all catptions
+      const allCaptions = await db.caption.findAll({
+        where: { catpicId: imgid },
+        include: [db.vote],
+        raw: true,
+      });
+      console.log("ALLCAPTS", allCaptions);
+    
+      let captionsWithVotes = await Promise.all(allCaptions.map( async cap => {
+        const votes = await db.vote.count({
+          where: { captionId: cap.id },
+        });
+        cap.votes = votes
+        return cap
+      }))
+      console.log("CAPTIONS WITH VOTES", captionsWithVotes)
+      console.log("USERID:", user.id)
+    
+      if(!captionsWithVotes){
+        res.redirect("/captions/prompt")
+      } else {
+        res.render("captions/results", {
+          catid: picInfo,
+          captions: captionsWithVotes,
+        });
+      }
+
+    } catch(err) {
+      console.log(err)
     }
-  });
-  console.log("PIC INFO", picInfo);
 
-  // get all catptions
-  const allCaptions = await db.caption.findAll({
-    where: { catpicId: imgid },
-    include: [db.vote],
-    raw: true,
-  });
-  console.log("ALLCAPTS", allCaptions);
-
-  let captionsWithVotes = await Promise.all(allCaptions.map( async cap => {
-    const votes = await db.vote.count({
-      where: { captionId: cap.id },
-    });
-    cap.votes = votes
-    return cap
-  }))
-  console.log("CAPTIONS WITH VOTES", captionsWithVotes)
-  console.log("USERID:", user.id)
-
-  if(!captionsWithVotes){
-    res.redirect("/captions/prompt")
   } else {
-    res.render("captions/results", {
-      catid: picInfo,
-      captions: captionsWithVotes,
-    });
+    res.redirect("users/login")
   }
-
 });
 
 //get all vote count
@@ -123,14 +154,21 @@ router.post("/results/:id/vote", async (req, res) => {
   user = res.locals.user
   imageid = req.body.imageid
   captionid = req.params.id
-
-  await db.vote.create({
-    userId: user.id,
-    captionId: captionid,
-  })
-
-
-  res.redirect(`/captions/results/${imageid}`)
+  
+  if (req.cookies.userId) {
+    try {
+      await db.vote.create({
+        userId: user.id,
+        captionId: captionid,
+      })
+    
+      res.redirect(`/captions/results/${imageid}`)
+    } catch(err) {
+      console.log(err)
+    }
+  } else {
+    res.redirect("/users/login")
+  }
 });
 
 module.exports = router;

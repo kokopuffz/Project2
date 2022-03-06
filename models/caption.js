@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       userId: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
     },
