@@ -1,6 +1,3 @@
-label[for="captionid"]{
-   //Your CSS goes that makes the label look like a button goes here
-}
-#captionid{
-    display:none;
+.navbarColor01 {
+    background-color: --bs-secondary;
 }

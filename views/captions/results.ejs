@@ -5,20 +5,24 @@
 
 <div>
   <ul>
-    <li>
-      <label for="captions">all captions</label>
-      <% for( let i = 0; i < captions.length; i++ ) { %> 
+    <label for="captions">all captions</label>
+    <% for( let i = 0; i < captions.length; i++ ) { %> 
+      <li>
         <form action="/captions/results/<%=captions[i].id %>/vote" method="POST">
-          <p><%= captions[i].text %></p>
           <p><%= captions[i].votes %></p>
-          <input
-            type="hidden"
-            name="imageid"
-            value="<%= captions[i].catpicId%>"
-          />
-          <button type="submit" name="" id="votingbutton" value="">
-            vote 
-          </button>
+          <p><%= captions[i].text %></p>
+          <% if(user.id === captions[i]['votes.userId']){ %> 
+            <button type="submit" style="background-color: green;" disabled>voted</button>
+            <% } else { %> 
+              <input
+                type="hidden"
+                name="imageid"
+                value="<%= captions[i].catpicId%>"
+              />
+              <button type="submit" name="" id="votingbutton" value="">
+              vote 
+              </button>
+            <% } %> 
           
         </form>
         <% } %> 

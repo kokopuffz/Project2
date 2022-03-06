@@ -98,7 +98,7 @@ router.get("/results/:id", async (req, res) => {
   const user = res.locals.user;
   const imgid = req.params.id;
   console.log("ID:", imgid)
-
+  
   if(req.cookies.userId){
     try {
       const picInfo = await db.catpic.findOne({

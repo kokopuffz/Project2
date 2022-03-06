@@ -1,13 +1,27 @@
-<nav>
-  <ul>
-    <% if (user){ %>
-
-    <li><a href="/">kittyhome</a></li>
-    <li><a href="/users/kittytree">profile</a></li>
-    <li><a href="/users/logout">logout</a></li>
-    <% } else { %>
-    <li><a href="/users/new">sign up</a></li>
-    <li><a href="/users/login">login</a></li>
-    <% } %>
-  </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="/">kitty-home
+            <span class="visually-hidden">(current)</span>
+          </a>
+          <% if (user){ %>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/kittytree">kitty-tree</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/logout">logout</a>
+        </li>
+      <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">sign up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/login"">login</a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
 </nav>
