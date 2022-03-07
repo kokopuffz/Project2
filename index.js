@@ -44,19 +44,19 @@ app.use(async (req, res, next) => {
     res.locals.user = user;
   } else res.locals.user = null;
   next();
-});
+}); 
 
 // CONTROLLERS
 app.use("/users", require("./controllers/users.js"));
 app.use("/captions", require("./controllers/captions.js"));
 
 
-// axios(catConfig).then(function (response) {
-//   console.log(JSON.stringify(response.data));
-// });
+axios(catConfig).then(function (response) {
+  console.log(JSON.stringify(response.data));
+});
 
 // ROUTES
-app.get("/", (req, res) => {
+app.get("/", (req, res) => { 
   res.render("home.ejs");
 });
 
