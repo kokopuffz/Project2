@@ -125,20 +125,20 @@ router.get("/results/:id", async (req, res) => {
       );
       console.log("CAPTIONS WITH VOTES", captionsWithVotes);
       console.log("USERID:", user.id);
-      
-      //check for doubles
-      let noDoubleVotes = (arr)=> {
-        let uniq = []
-        for (let i=0,l=arr.length; i < l; i++){
-          if((uniq.indexOf(arr[i].votes)) ===-1 && arr[i].votes !== ''){
-            uniq.push(arr[i])
-        }
-      }
-      return uniq
-    }
 
-    let noDoubles = noDoubleVotes(captionsWithVotes);
-      console.log("no doubled votes!", )
+      //check for doubles
+      let noDoubleVotes = (arr) => {
+        let uniq = [];
+        for (let i = 0, l = arr.length; i < l; i++) {
+          if (uniq.indexOf(arr[i].votes) === -1 && arr[i].votes !== "") {
+            uniq.push(arr[i]);
+          }
+        }
+        return uniq;
+      };
+
+      let noDoubles = noDoubleVotes(captionsWithVotes);
+      console.log("no doubled votes!");
       if (!captionsWithVotes) {
         res.redirect("/captions/prompt");
       } else {
