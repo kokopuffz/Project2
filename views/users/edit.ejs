@@ -1,21 +1,39 @@
-<h2>you're in edits!</h2>
-<img src="<%= caption['catpic.imgurl'] %>" > 
-<h5>prompt: <%= caption['catpic.alttext'] %> </h5>
+<div class="container"> 
+  <h2>you're in edits!</h2>
+</div>
 
-<form action="/users/kittytree/<%=capid%>/edit/?_method=PUT" method="POST"> 
-  <div> 
-    <button type="submit">update caption</button>
-    <h5>your current caption: <%= caption.text  %> </h5>
-    <label for="captionchange">change your caption here: </label>
-    <input type="text" name="caption" id="captionchange" value="" ></input>
+<div class="container">
+  <div class="card text-white bg-primary mb-3" style="max-width: 35rem;"">
+    <div class="card-header">alt-text: <%= caption['catpic.alttext'] %> </div>
+    <img src="<%= caption['catpic.imgurl'] %>" > 
+    <figure class="text-center">
+      <blockquote class="blockquote">
+        <p class="mb-0">current caption: <%= caption.text  %></p>
+      </blockquote>
+    
+    <div class="form-group">
+      <form action="/users/kittytree/<%=capid%>/edit/?_method=PUT" method="POST">
+        <div>
+          <label for="captionchange">change your caption here: </label>
+        </div>
+        <input class="form-label mt-4 form-control-lg" type="text" name="caption"       id="captionchange" value="" placeholder=" <%= caption.text  %>"></input>
+        <div class="d-grip gap-2">
+          <button class="btn btn-secondary" type="submit">update caption</button>
+        </div>
+      </form>
+      </div>
+    </figure>
   </div>
-</form>
+</div>
 
-<div>
+
+
+
+<div class="d-grid gap-2">
   <% if(user.id === caption.userId){ %>
     <h3> OR</h3>
     <form action="/users/kittytree/<%=capid%>/edit/?_method=DELETE" method="POST"> 
-      <input type="submit" class="" value="Delete Caption FUREVER" value="deletecaption">
+      <button class="btn btn-lg btn-danger" type="submit" class="" value="deletecaption">Delete Caption FUR-EVER</button>
     </form>
   <% } %> 
 </div>

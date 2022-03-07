@@ -1,41 +1,43 @@
-<div>
+<div class="container">
+  <div class="mt-lg-4">
   <% if(user.username) { %>
-  <h2>meow! <%= user.username %></h2>
+    <h2>meow! <%= user.username %></h2>
   <% } else { %>
-  <h2>hello <%= user.email %> !</h2>
-  <p>would you like us to call you <a href="/users/newusername">something else?</a></p>
+    <h2>hello <%= user.email %> !</h2>
+    <p>would you like us to call you <a href="/users/newusername">something else?</a></p>
   <% } %>
-</div>
-<div>
-  <h3>WELCOME TO YOUR KITTY-TREE </h3>
-  <h4>aka your profile page</h4>
-  <p>This is where you can view all the cats you've collected throughout your CAT-ptioning journey. You can also view all your comments here. You are welcome to edit or delete your captions to experience them again :3</p>
+  </div>
+  <div class="mt-xl-4">
+
+    <h3 class="text-muted text-secondary"> WELCOME TO YOUR KITTY-TREE</h3>
+    <h4>aka your profile page</h4>
+    <p>This is where you can view all the cats you've collected throughout your CAT-ptioning journey. You can also view all your comments here. You are welcome to edit or delete your captions to experience them again :3</p>
+  </div>
 </div>
 
-<div>
+<div class="container">
+
   <% if (captions.length < 1) { %> 
     <h4>You have 0 cats. Start collecting some right    <a href="/captions/prompt"><button class="" >MEOW!</button></a></h4>
-    
-    <% } else { %> 
-      <h3>Your kitty collection!</h3>
-      <ul>
-        <% captions.forEach(caption => { %>
-      <div class="row>
-        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0"> 
-          <img class="img-thumbnail w-100 shadow-1-strong rounded mb-4" src="<%=caption['catpic.imgurl']%> "
-        </div>
-      </div>
-        <li> 
-        </li>
-    <% }) %> 
-  <% } %> 
-  </ul>
+  <% } else { %> 
+    <h3>Your kitty collection!</h3>
+    <div class="row"">
+    <% captions.forEach(caption => { %> 
+            <div class="column-md-4 mt-3 col-lg-3" >
+              <span><img class="img-thumbnail img_fluid img_responsive w-100 shadow-1-strong rounded mb-4" src="<%=caption['catpic.imgurl']%> "></span>
+            </div>
+      <% }) %> 
+    </div>
+    <% } %> 
+  </div>
 </div>
 
-<div>
+<div class="container">
   <ul> 
-    <% if (captions.length > 0) { %> 
-    <h3>all your captions</h3>
+    <div> 
+      <% if (captions.length > 0) { %> 
+      <h3>all your captions</h3>
+    </div>
     <% captions.forEach(caption => { %>
       <li> 
         <a href="/users/kittytree/<%= caption.id %>/edit"
@@ -45,3 +47,4 @@
     <% } %> 
   </ul>
 </div>
+
