@@ -1,22 +1,23 @@
-<div class="container">
-  <div class="mt-lg-4">
-  <% if(user.username) { %>
-    <h2>meow! <%= user.username %></h2>
-  <% } else { %>
-    <h2>hello <%= user.email %> !</h2>
-    <p>would you like us to call you <a href="/users/newusername">something else?</a></p>
-  <% } %>
+<div class="card mb-3 mt-4">
+  <h3 class="card-header">WELCOME TO YOUR KITTY-TREE!</h3>
+  <div class="card-body">
+    <% if(user.username) { %>
+      <h5 class="card-title">meow! <%= user.username %></h5>
+    <%} else { %>
+      <h5 class="card-title">hello <%= user.email %>!</h5>
+    <% } %>
+    <h6 class="card-subtitle text-muted">would you like us to call you <a href="/users/newusername">something else?</a></h6>
   </div>
-  <div class="mt-xl-4">
-
-    <h3 class="text-muted text-secondary"> WELCOME TO YOUR KITTY-TREE</h3>
-    <h4>aka your profile page</h4>
-    <p>This is where you can view all the cats you've collected throughout your CAT-ptioning journey. You can also view all your comments here. You are welcome to edit or delete your captions to experience them again :3</p>
+  <div class="card-body">
+      <p class="card-text">aka your profile page</p>
+    <p class="card-text">This is where you can view all the cats you've collected throughout your CAT-ptioning journey. You can also view all your comments here. You are welcome to edit or delete your captions to experience them again :3</p>
   </div>
-</div>
+  <ul class="list-group list-group-flush">
+  </ul>
+  <div class="card-body">
+  </div>
 
 <div class="container">
-
   <% if (captions.length < 1) { %> 
     <h4>You have 0 cats. Start collecting some right    <a href="/captions/prompt"><button class="" >MEOW!</button></a></h4>
   <% } else { %> 
