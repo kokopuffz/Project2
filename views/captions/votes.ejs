@@ -5,9 +5,8 @@
     </img>
     <div class="card-body">
       <p class="card-text">all captions</p>
-    </div>
-      <% for( let i = 0; i < captions.length; i++ ) { %> 
-        <ul class="list-group list-group-flush">
+    <% for( let i = 0; i < captions.length; i++ ) { %> 
+      <ul class="list-group list-group-flush">
         <li class="list-group-item d-flex justify-content-between align-item-center">
           <form action="/votes/<%=captions[i].id %>/" method="POST">
             <span class=""><p class="text-muted">vote count: <%= captions[i].votes %></p></span>
@@ -28,6 +27,7 @@
         </li>
       <% } %> 
       </ul>
+    </div>
     <div class="card-footer text-muted">
       <a href="/captions/prompt"><button class="btn btn-primary">Try Another</button></a>
     </div>
