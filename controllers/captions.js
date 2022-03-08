@@ -82,7 +82,7 @@ router.post("/prompt/", async (req, res) => {
         text: caption,
       });
 
-      res.redirect(`/captions/results/${catpicid}`);
+      res.redirect(`/votes/${catpicid}`);
     } catch (err) {
       console.log(err);
     }
@@ -91,104 +91,104 @@ router.post("/prompt/", async (req, res) => {
   }
 });
 
-router.get("/results/:id", async (req, res) => {
-  console.log("GET RESULTS:id");
-  const user = res.locals.user;
-  const imgid = req.params.id;
-  console.log("ID:", imgid);
+// router.get("/results/:id", async (req, res) => {
+//   console.log("GET RESULTS:id");
+//   const user = res.locals.user;
+//   const imgid = req.params.id;
+//   console.log("ID:", imgid);
 
-  if (req.cookies.userId) {
-    try {
-      const picInfo = await db.catpic.findOne({
-        where: {
-          id: imgid,
-        },
-      });
-      console.log("PIC INFO", picInfo);
+//   if (req.cookies.userId) {
+//     try {
+//       const picInfo = await db.catpic.findOne({
+//         where: {
+//           id: imgid,
+//         },
+//       });
+//       console.log("PIC INFO", picInfo);
 
-      // get all catptions
-      const allCaptions = await db.caption.findAll({
-        where: { catpicId: imgid },
-        include: [db.vote],
-        raw: true,
-      });
-      console.log("ALLCAPTS", allCaptions);
+//       // get all catptions
+//       const allCaptions = await db.caption.findAll({
+//         where: { catpicId: imgid },
+//         include: [db.vote],
+//         raw: true,
+//       });
+//       console.log("ALLCAPTS", allCaptions);
 
-      let captionsWithVotes = await Promise.all(
-        allCaptions.map(async (cap) => {
-          const votes = await db.vote.count({
-            where: { captionId: cap.id },
-          });
-          cap.votes = votes;
-          return cap;
-        })
-      );
-      console.log("CAPTIONS WITH VOTES1.0", captionsWithVotes);
-      console.log("USERID:", user.id);
+//       let captionsWithVotes = await Promise.all(
+//         allCaptions.map(async (cap) => {
+//           const votes = await db.vote.count({
+//             where: { captionId: cap.id },
+//           });
+//           cap.votes = votes;
+//           return cap;
+//         })
+//       );
+//       console.log("CAPTIONS WITH VOTES1.0", captionsWithVotes);
+//       console.log("USERID:", user.id);
 
-    let captionsWithVotesIndexes = []
-    captionsWithVotes.forEach(cap=>{
-      captionsWithVotesIndexes.push(cap.id)
-    })
+//       //get all indexes of captionswithvotes
+//       let captionsWithVotesIndexes = [];
+//       captionsWithVotes.forEach((cap) => {
+//         captionsWithVotesIndexes.push(cap.id);
+//       });
 
-    console.log("CAPS WITH VOTES IDX", captionsWithVotesIndexes)
+//       console.log("CAPS WITH VOTES IDX", captionsWithVotesIndexes);
 
-    function uniqueIdx(arr){
-      return[...new Set(arr)]
-    }
+//       function uniqueIdx(arr) {
+//         return [...new Set(arr)];
+//       }
 
-    //get the captions that are unique
-    let tempVotes = []
-    let uniqIdx = uniqueIdx(captionsWithVotesIndexes)
-    captionsWithVotes.forEach((cap, i) => {
-      if (uniqIdx[i] === cap.id){
-        tempVotes.push(cap)
-      }
-    })
+//       //get the captions that are unique using 
+//       let allUniqCaptionsWithVotes = [];
+//       let uniqIdx = uniqueIdx(captionsWithVotesIndexes);
+//       captionsWithVotes.forEach((cap, i) => {
+//         if (uniqIdx[i] === cap.id) {
+//          allUniqCaptionsWithVotes.push(cap);
+//         }
+//       });
 
+//       if (!captionsWithVotes) {
+//         res.redirect("/captions/prompt");
+//       } else {
+//         res.render("captions/results", {
+//           catid: picInfo,
+//           captions: allUniqCaptionsWithVotes,
+//           // noDoubles: captionsWithVotesNoDubs,
+//         });
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   } else {
+//     res.redirect("users/login");
+//   }
+// });
 
-      if (!captionsWithVotes) {
-        res.redirect("/captions/prompt");
-      } else {
-        res.render("captions/results", {
-          catid: picInfo,
-          captions: tempVotes
-          // noDoubles: captionsWithVotesNoDubs,
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  } else {
-    res.redirect("users/login");
-  }
-});
+// //get all vote count
+// //vote happens when there is a captionid and a user id
+// router.post("/results/:id/vote", async (req, res) => {
+//   console.log("POST /results/:id/vote");
+//   console.log("BODY", req.body);
+//   console.log("PARAMS", req.params);
+//   console.log("imageid:", req.body.imageid);
+//   user = res.locals.user;
+//   imageid = req.body.imageid;
+//   captionid = req.params.id;
 
-//get all vote count
-//vote happens when there is a captionid and a user id
-router.post("/results/:id/vote", async (req, res) => {
-  console.log("POST /results/:id/vote");
-  console.log("BODY", req.body);
-  console.log("PARAMS", req.params);
-  console.log("imageid:", req.body.imageid);
-  user = res.locals.user;
-  imageid = req.body.imageid;
-  captionid = req.params.id;
+//   if (req.cookies.userId) {
+//     try {
+//       await db.vote.create({
+//         userId: user.id,
+//         captionId: captionid,
+//       });
 
-  if (req.cookies.userId) {
-    try {
-      await db.vote.create({
-        userId: user.id,
-        captionId: captionid,
-      });
-
-      res.redirect(`/captions/results/${imageid}`);
-    } catch (err) {
-      console.log(err);
-    }
-  } else {
-    res.redirect("/users/login");
-  }
-});
+//       res.redirect(`/captions/results/${imageid}`);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   } else {
+//     res.redirect("/users/login");
+//   }
+// });
 
 module.exports = router;

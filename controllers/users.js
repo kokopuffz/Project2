@@ -135,7 +135,7 @@ router.put("/kittytree/:id/edit", async (req, res) => {
     });
     await foundCaption.save();
     console.log("foundCaption AFTER:", foundCaption);
-    res.redirect(`/users/kittytree`);
+    res.redirect(`/users/kittytree` );
   } catch(err) {
     console.log("err", err)
   }
@@ -143,6 +143,7 @@ router.put("/kittytree/:id/edit", async (req, res) => {
 //show based on caption clicked
 router.get("/kittytree/:id/edit", async (req, res) => {
   console.log("GET /KITTYTREE/:ID");
+  console.log("capid", catpid)
   let capid = req.params.id;
   try {
     const caption = await db.caption.findOne({ 

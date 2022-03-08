@@ -9,8 +9,8 @@
     <!-- <h6 class="card-subtitle text-muted">would you like us to call you <a href="/users/newusername">something else?</a></h6> -->
   </div>
   <div class="card-body">
-      <p class="card-text">aka your profile page</p>
-    <p class="card-text">This is where you can view all the cats you've collected throughout your CAT-ptioning journey. You can also view all your comments here. You are welcome to edit or delete your captions to experience them again :3</p>
+      <p class="card-text">this is your profile page</p>
+    <p class="card-text">You can view all the cats you've collected throughout your CAT-ptioning journey. You can also view all your comments here. You are welcome to edit or delete your captions to experience them again :3</p>
   </div>
   <ul class="list-group list-group-flush">
   </ul>
@@ -22,10 +22,11 @@
     <h4>You have 0 cats. Start collecting some right    <a href="/captions/prompt"><button class="" >MEOW!</button></a></h4>
   <% } else { %> 
     <h3>Your kitty collection!</h3>
+    <h4>Click on the images to see cat page!</h4>
     <div class="row"">
     <% captions.forEach(caption => { %> 
             <div class="column-md-4 mt-3 col-lg-3" >
-              <span><img class="img-thumbnail img_fluid img_responsive w-100 shadow-1-strong rounded mb-4" src="<%=caption['catpic.imgurl']%> "></span>
+              <span><a href="/votes/<%= caption.catpicId %> "><img class="img-thumbnail img_fluid img_responsive w-100 shadow-1-strong rounded mb-4" src="<%=caption['catpic.imgurl']%> "></a></span>
             </div>
       <% }) %> 
     </div>

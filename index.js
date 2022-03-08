@@ -49,6 +49,7 @@ app.use(async (req, res, next) => {
 // CONTROLLERS
 app.use("/users", require("./controllers/users.js"));
 app.use("/captions", require("./controllers/captions.js"));
+app.use("/votes", require("./controllers/votes.js"));
 
 
 axios(catConfig).then(function (response) {
