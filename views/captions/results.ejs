@@ -10,7 +10,6 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item d-flex justify-content-between align-item-center">
           <form action="/captions/results/<%=captions[i].id %>/vote" method="POST">
-            
             <span class=""><p class="text-muted">vote count: <%= captions[i].votes %></p></span>
             <p><%= captions[i].text %></p>
             <% if(user.id === captions[i]['votes.userId']){ %> 

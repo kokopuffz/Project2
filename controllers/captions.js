@@ -123,28 +123,37 @@ router.get("/results/:id", async (req, res) => {
           return cap;
         })
       );
-      console.log("CAPTIONS WITH VOTES", captionsWithVotes);
+      console.log("CAPTIONS WITH VOTES1.0", captionsWithVotes);
       console.log("USERID:", user.id);
 
-      //check for doubles
-      let noDoubleVotes = (arr) => {
-        let uniq = [];
-        for (let i = 0, l = arr.length; i < l; i++) {
-          if (uniq.indexOf(arr[i].votes) === -1 && arr[i].votes !== "") {
-            uniq.push(arr[i]);
-          }
-        }
-        return uniq;
-      };
+    let captionsWithVotesIndexes = []
+    captionsWithVotes.forEach(cap=>{
+      captionsWithVotesIndexes.push(cap.id)
+    })
 
-      let noDoubles = noDoubleVotes(captionsWithVotes);
-      console.log("no doubled votes!");
+    console.log("CAPS WITH VOTES IDX", captionsWithVotesIndexes)
+
+    function uniqueIdx(arr){
+      return[...new Set(arr)]
+    }
+
+    //get the captions that are unique
+    let tempVotes = []
+    let uniqIdx = uniqueIdx(captionsWithVotesIndexes)
+    captionsWithVotes.forEach((cap, i) => {
+      if (uniqIdx[i] === cap.id){
+        tempVotes.push(cap)
+      }
+    })
+
+
       if (!captionsWithVotes) {
         res.redirect("/captions/prompt");
       } else {
         res.render("captions/results", {
           catid: picInfo,
-          captions: noDoubles,
+          captions: tempVotes
+          // noDoubles: captionsWithVotesNoDubs,
         });
       }
     } catch (err) {
