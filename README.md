@@ -66,28 +66,21 @@ Hopefully, this will be entertaining to all participants including those using s
 - axios - gets api info
 
 ## wireframes
+
 home page-basically, i want people to know what they are signing up for
-![home page](./pitchimgs/index1.png)
-home page-the image should carousel to show how it is played
-![home page](./pitchimgs/index2.png)
-user logged in index page
-![logged-in page](./pitchimgs/cathome.png)
-cat-tree page shows all collected cats of the user... cats the user has made captions for.
-![cat-tree-page](./pitchimgs/cattree1.png)
-cat-tree page includes all captions and alt-texts, has option to edit or delete
-![logged-in page](./pitchimgs/cattree21.png)
-captions mode instructions
-![logged-in page](./pitchimgs/captionsinst.png)
-captions prompt page
-![logged-in page](/pitchimgs/caption2.png)
-caption results page
-![logged-in page](/pitchimgs/captionresult.png)
-captions result page
-![logged-in page](/pitchimgs/resultpage.png)
-devmode instructions
-![logged-in page](./pitchimgs/devmodeinst.png)
-devmode gameplay
-![logged-in page](./pitchimgs/devmode2.png)
+![home page](./pitchimgs/homepage.png)
+
+instructions for captions mode
+![instructions](./pitchimgs/instructions.png)
+
+captions page with voting options
+![vote page](./pitchimgs/votesid.png)
+
+kitty-tree(profile) page shows all collected cats of the user. These are cats the user has made captions for. User can click on the image of cat to go back to the voting page of the image to see if they received more votes or to read other captions
+![profile/kitty-tree page](./pitchimgs/kittytree.png)
+
+user can click on the captions on their kitty tree to get to the edits page where they can delete or edit their captions
+![edit page](./pitchimgs/edits2.png)
 
 ## restful routing chart
 
@@ -142,4 +135,5 @@ devmode gameplay
 - refractoring is scary and causes a domino effect of damages on your sanity and code :D
 - i think the importance of route naming was the biggest hurdle for me.
 - also, i was trying to console log less but now i'm just going to consolelog even harder. :3
--bonus: centering still sucks (╯°□°）╯︵ ┻━┻
+- i tried not to make it pink but i still made it pink >.>
+- bonus: centering still sucks (╯°□°）╯︵ ┻━┻
