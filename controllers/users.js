@@ -143,7 +143,6 @@ router.put("/kittytree/:id/edit", async (req, res) => {
 //show based on caption clicked
 router.get("/kittytree/:id/edit", async (req, res) => {
   console.log("GET /KITTYTREE/:ID");
-  console.log("capid", catpid)
   let capid = req.params.id;
   try {
     const caption = await db.caption.findOne({ 

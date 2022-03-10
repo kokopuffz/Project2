@@ -37,19 +37,12 @@ Hopefully, this will be entertaining to all participants including those using s
 - [x] cats that were captioned on will become images in user's cattree
 
 ## stretch goals
-- cats that were captioned on will become images in user's cattree, make them clickable
+- [x] cats that were captioned on will become images in user's cattree, make them clickable
 - random cat facts api on main page?
 - dev affirmation api on "dev mode"
 - about page
 - if anything is edited, the vote count resets
 - make a dev mode
-## installation instructions
-1. fork and clone to your terminal, then run [npm i] to install:
-[axios][bcrypt][cookie-parser][dotenv][ejs][env][express][express-ejslayouts][method-override][pg][pg-hstore][sequelize][sequelize-cli]
-
-3. open code
-5. to get more images for creating more prompts, go to https://thecatapi.com/signup
-
 ## ERDS
 
 ![an ERD of my project](./pitchimgs/ERD.drawio.png)
@@ -71,7 +64,6 @@ Hopefully, this will be entertaining to all participants including those using s
 - draw.io (ERD)
 - TheCatApi - where i got the cat pictures
 - axios - gets api info
-
 
 ## wireframes
 home page-basically, i want people to know what they are signing up for
@@ -97,8 +89,6 @@ devmode instructions
 devmode gameplay
 ![logged-in page](./pitchimgs/devmode2.png)
 
-
-
 ## restful routing chart
 
 | verb(REST) | url | action(CRUD) | description |
@@ -122,20 +112,22 @@ devmode gameplay
 | GET* | /dev/start/ | show(read) | displays prompt |
 | POST* | /dev/prompt/:catid/ | new(create) | create new alttext for the catid image |
 
-*- 
+*stretch goals
 
+## installation instructions
 
-## installation
+1. fork and clone to your terminal, then run [npm i] to install:
+[axios] [bcrypt] [cookie-parser] [dotenv] [ejs] [env] [express] [express-ejslayouts] [method-override] [pg] [pg-hstore][sequelize] [sequelize-cli]
+2. open code
+3. [sequelize db.migrate] to apply all migrations
+4. [sequelize db.seed:all] to run alt-text seed (54 prompts)
+5. to get more images for creating more prompts, go to https://thecatapi.com/signup and sign up for key. You will get your key via email.
+6. create .env file and add CAT_API_KEY=*******
+7. nodemon on terminal to start
 
-1. download code to your terminal, then run `npm i` to install
-- axios 
-- ejs
-- method-methodOverride
-- pg 
-- pg-hstore
-- sequelize
 
 ## sources used
+
 - bootswatch
 - https://css-tricks.com/responsive-images-css/
 - alot alot of classnotes
@@ -144,6 +136,7 @@ devmode gameplay
 - and as always, yaak, paulina, my awesome cohort and instructors. \o/
 
 ## post project reflections
+
 - i thought routes were just set up in a way you want to your urls.  i quickly found out i was very wrong.
 - algorithms and datastructures are really relevant. i spent an obscene of time on one problem... no i won't tell you what it was. >.> maybe.
 - refractoring is scary and causes a domino effect of damages on your sanity and code :D
