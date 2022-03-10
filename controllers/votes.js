@@ -22,53 +22,59 @@ router.get("/:id", async (req, res) => {
       // get all catptions
       const allCaptions = await db.caption.findAll({
         where: { catpicId: imgid },
-        include: [db.vote],
         raw: true,
       });
-      console.log("ALLCAPTS", allCaptions);
-
+      
+console.log('ALLCAPTS LENGTH', allCaptions.length)
       //get all captions with votes and add voteline
       let captionsWithVotes = await Promise.all(
         allCaptions.map(async (cap) => {
           const votes = await db.vote.count({
             where: { captionId: cap.id },
           });
+          const userVotes = await db.vote.count({
+            where: { captionId: cap.id, userId: user.id}, 
+          });
+          cap.canVote = userVotes === 0
           cap.votes = votes;
           return cap;
         })
       );
+      console.log("ALLCAPTSWITHSVOTES", captionsWithVotes);
 
-      //sort by highest vote count
-      captionsWithVotes.sort()
-      console.log("CAPPS WITH VOTES:", captionsWithVotes)
-      // console.log("CAPPS WITH VOTES:", sortedCaps)
-      console.log("USERID:", user.id);
+      // //sort by highest vote count
+      // console.log("CAPPS WITH VOTES:", captionsWithVotes);
+      // // console.log("CAPPS WITH VOTES:", sortedCaps)
+      // console.log("USERID:", user.id);
 
-      //get all indexes of captionswithvotes
-      let captionsWithVotesIndexes = [];
-      captionsWithVotes.forEach((cap) => {
-        captionsWithVotesIndexes.push(cap.id);
-      });
-      console.log("CAPS WITH VOTES IDX", captionsWithVotesIndexes);
+      // //get all indexes of captionswithvotes
+      // let captionsWithVotesIndexes = [];
+      // captionsWithVotes.forEach((cap) => {
+      //   captionsWithVotesIndexes.push(cap.id);
+      // });
+      // console.log("CAPS WITH VOTES IDX", captionsWithVotesIndexes);
 
-      function uniqueIdx(arr) {
-        return [...new Set(arr)];
-      }
-      //get the captions that are unique using
-      let allUniqCaptionsWithVotes = [];
-      let uniqIdx = uniqueIdx(captionsWithVotesIndexes);
-      captionsWithVotes.forEach((cap, i) => {
-        if (uniqIdx[i] === cap.id) {
-          allUniqCaptionsWithVotes.push(cap);
-        }
-      });
+      // function uniqueIdx(arr) {
+      //   return [...new Set(arr)];
+      // }
 
-      if (!allUniqCaptionsWithVotes) {
+      // //get the captions that are unique using
+      // let allUniqCaptionsWithVotes = [];
+      // let uniqIdx = uniqueIdx(captionsWithVotesIndexes);
+      // console.log("unigIdx:", uniqIdx);
+      // captionsWithVotes.forEach((cap, i) => {
+      //   if (uniqIdx[i] === cap.id) {
+      //     allUniqCaptionsWithVotes.push(cap);
+      //   }
+      // });
+
+
+      if (!captionsWithVotes) {
         res.redirect("/captions/prompt");
       } else {
         res.render("captions/votes.ejs", {
           catid: picInfo,
-          captions: allUniqCaptionsWithVotes,
+          captions: captionsWithVotes,
         });
       }
     } catch (err) {

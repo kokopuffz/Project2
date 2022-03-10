@@ -1,6 +1,6 @@
 # kitty-text
 
-## deployed here
+## link to deployed live site
 https://kitty-text.herokuapp.com/
 
 ## project idea/description
@@ -44,8 +44,11 @@ Hopefully, this will be entertaining to all participants including those using s
 - if anything is edited, the vote count resets
 - make a dev mode
 ## installation instructions
+1. fork and clone to your terminal, then run [npm i] to install:
+[axios][bcrypt][cookie-parser][dotenv][ejs][env][express][express-ejslayouts][method-override][pg][pg-hstore][sequelize][sequelize-cli]
 
-## link to deployed live site
+3. open code
+5. to get more images for creating more prompts, go to https://thecatapi.com/signup
 
 ## ERDS
 
@@ -105,19 +108,21 @@ devmode gameplay
 | POST | /new | new(create) | create new user with the POST payload(form) data |
 | GET | /login | show(read) | displays login page |
 | POST | /login | login(create) | create session |
-| GET | / | show(read)) | display user's logged in main page |
+| GET | / | show(read) | display user's logged in main page |
 | GET | / | users/logout(read) | clears cookies and renders index page |
 | GET | /captions/instructions/ | show(read) | display captions direction |
 | GET | /captions/prompt/ | show(read) | displays prompt |
 | POST | /captions/prompt/:catid/ | new(create) | create new caption for the catid alt text |
-| GET | /results/:catid/ | show(read) | display catid's results page |
-| POST | /results/:catid/ | interaction(create) | record user interaction with any captions |
-| GET | /dev/ | show(read) | display devmode start page |
-| GET | /dev/start/ | show(read) | displays prompt |
-| POST | /dev/prompt/:catid/ | new(create) | create new alttext for the catid image |
+| GET | /votes/:catid/ | show(read) | display catid's voting page |
+| POST | /votes/:catid/ | interaction(create) | record user interaction with any captions on the votes page |
 | GET | /users/kittytree | show(read) | display all of user's cats, captions |
 | PUT | /users/kittytree/:id/edit | edit(update) | update any caption or alt text from user's cattree page |
 | DELETE | /users/kittytree/:id/edit | destroy | delete any caption or alt text from user's cattree page |
+| GET* | /dev/ | show(read) | display devmode start page |
+| GET* | /dev/start/ | show(read) | displays prompt |
+| POST* | /dev/prompt/:catid/ | new(create) | create new alttext for the catid image |
+
+*- 
 
 
 ## installation
